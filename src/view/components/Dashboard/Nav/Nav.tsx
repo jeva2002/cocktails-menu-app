@@ -18,7 +18,7 @@ const adminLinks: TLinksList = [
 
 const Nav: React.FunctionComponent = () => {
   const [showLinks, setShowLinks] = useState(false);
-  const [currentPage, setCurrentPage] = useState('');
+  const [currentPage, setCurrentPage] = useState('Mesas');
 
   return (
     <nav className='nav d-flex flex-column position-relative'>

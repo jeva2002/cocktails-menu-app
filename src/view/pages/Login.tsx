@@ -21,8 +21,6 @@ const Login: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
 
-  console.log(user)
-
   if (user.email !== '' && user.username !== '')
     return <Navigate to='/dashboard' />;
   return (
