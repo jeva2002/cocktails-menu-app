@@ -6,6 +6,14 @@
   justify-content: center;
   gap: 15px;
   align-items: center;
+
+  p {
+    margin-top: 10px;
+    color: white;
+    a {
+      color: #622fcf;
+    }
+  }
 }
 
 .text-input {

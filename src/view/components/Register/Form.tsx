@@ -5,6 +5,8 @@ import TextField from '../Common/Form/TextField';
 const Form: React.FunctionComponent = () => {
   return (
     <FormikForm className='front-form'>
+      <TextField label='Nombre de usuario' name='username' image='user' />
+      <TextField label='Nombre Completo' name='name' image='user' />
       <TextField
         label='Correo Electrónico'
         name='email'
@@ -18,10 +20,10 @@ const Form: React.FunctionComponent = () => {
         image='key'
       />
       <button className='btn' type='submit'>
-        Iniciar Sesión
+        Regístrate
       </button>
       <p>
-        ¿Aún no tienes cuenta? <Link to='/register'>Regístrate</Link>
+        ¿Ya tienes una cuenta? <Link to='/'>Inicia Sesión</Link>
       </p>
     </FormikForm>
   );

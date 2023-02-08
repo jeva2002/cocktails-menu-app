@@ -1,10 +1,9 @@
 import * as React from 'react';
 
-interface IAppProps {
-}
+interface IAppProps {}
 
-const App: React.FunctionComponent<IAppProps> = (props) => {
-  return ;
+const Home: React.FunctionComponent<IAppProps> = (props) => {
+  return <div>HOme</div>;
 };
 
-export default App;
+export default Home;
