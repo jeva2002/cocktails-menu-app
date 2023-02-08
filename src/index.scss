@@ -1,0 +1,54 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import './view/components/Common/Form/Form.scss';
+
+#root {
+  width: 100vw;
+  height: 100vh;
+  background-color: #252627;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .App {
+    height: 70%;
+    width: 60%;
+
+    .front-page {
+      border-radius: 10px;
+      height: 100%;
+      width: 100%;
+      background-image: url('./assets/bg/front.png');
+      background-repeat: repeat-x;
+      background-size: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        height: 120px;
+        width: 120px;
+      }
+    }
+
+    .btn {
+      background-color: #622FCF;
+      color: white;
+      width: 200px;
+      margin-top: 15px;
+    }
+
+    .btn:hover {
+      background-color: darken(#622FCF, 10);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .App {
+      height: 80vh;
+      width: 100vw;
+      background-size: contain;
+      background-position: center ;
+    }
+  }
+}

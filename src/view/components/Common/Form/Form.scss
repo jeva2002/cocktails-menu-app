@@ -1,0 +1,29 @@
+.front-form {
+  width: 320px;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 15px;
+  align-items: center;
+}
+
+.text-input {
+  input {
+    width: 250px;
+    border-radius: 5px;
+    padding: 10px 0;
+    border: none;
+    padding-left: 45px;
+  }
+
+  .icon {
+    filter: invert(99%) sepia(26%) saturate(325%) hue-rotate(31deg)
+      brightness(90%) contrast(90%);
+  }
+
+  .error {
+    padding-left: 10px;
+    color: red;
+  }
+}
