@@ -1,0 +1,54 @@
+.nav {
+  align-items: flex-start;
+
+  .nav-toggle {
+    align-self: flex-start;
+    cursor: pointer;
+    filter: invert(93%) sepia(12%) saturate(493%) hue-rotate(195deg)
+      brightness(105%) contrast(93%);
+  }
+
+  .nav-toggle:hover {
+    filter: invert(20%) sepia(100%) saturate(2639%) hue-rotate(253deg)
+      brightness(82%) contrast(98%);
+  }
+
+  .links {
+    position: absolute;
+    margin-top: 55px;
+    height: 73vh;
+    padding: 50px 80px 10px 10px;
+    display: flex;
+    flex-direction: column;
+    animation: slide 1s ease;
+
+    h2 {
+      color: #622fcf;
+      font-size: x-large;
+    }
+
+    .links-list {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 40px;
+
+      a {
+        color: #f1f2f6;
+        text-decoration: none;
+      }
+
+      a:hover {
+        color: #622fcf;
+      }
+    }
+  }
+}
+
+@keyframes slide {
+  from {
+    margin-left: 100%;
+  }
+  to {
+    left: 0%;
+  }
+}

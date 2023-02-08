@@ -21,10 +21,12 @@ const Login: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
 
+  console.log(user)
+
   if (user.email !== '' && user.username !== '')
     return <Navigate to='/dashboard' />;
   return (
-    <div className='front-page'>
+    <main className='main-container front-page'>
       <img src={logo} alt='Cocktails' />
       <Formik
         initialValues={INITIAL_VALUES}
@@ -42,7 +44,7 @@ const Login: React.FunctionComponent = () => {
       >
         <Form />
       </Formik>
-    </div>
+    </main>
   );
 };
 

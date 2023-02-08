@@ -13,10 +13,13 @@
     height: 80%;
     width: 60%;
 
-    .front-page {
+    .main-container {
       border-radius: 10px;
       height: 100%;
       width: 100%;
+    }
+
+    .front-page {
       background-image: url('./assets/bg/front.png');
       background-repeat: repeat-x;
       background-size: auto;
@@ -32,24 +35,28 @@
       }
     }
 
+    .dashboard {
+      background-color: #F1F2F6;
+    }
+
     .btn {
-      background-color: #622FCF;
+      background-color: #622fcf;
       color: white;
       width: 200px;
       margin-top: 15px;
     }
 
     .btn:hover {
-      background-color: darken(#622FCF, 10);
+      background-color: darken(#622fcf, 10);
     }
   }
-  
+
   @media (max-width: 768px) {
     .App {
       width: 100vw;
       background-size: contain;
 
-      .front-page {
+      .main-container {
         border-radius: 0;
       }
     }

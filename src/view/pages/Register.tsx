@@ -20,7 +20,7 @@ const INITIAL_VALUES: RegisterValues = {
 
 const Register: React.FunctionComponent = () => {
   return (
-    <div className='front-page'>
+    <main className='main-container front-page'>
       <img src={logo} alt='Cocktails' />
       <Formik
         initialValues={INITIAL_VALUES}
@@ -29,7 +29,7 @@ const Register: React.FunctionComponent = () => {
       >
         <Form />
       </Formik>
-    </div>
+    </main>
   );
 };
 
