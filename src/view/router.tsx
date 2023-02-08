@@ -15,6 +15,10 @@ const router = createBrowserRouter([
         path: '/register',
         element: <Register />,
       },
+      {
+        path: '/dashboard',
+        element: <div>Holi8</div>,
+      },
     ],
   },
 ]);

@@ -1,12 +1,14 @@
 import { Outlet } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from '../model/store/store';
 
-interface IAppProps {}
-
-const App: React.FunctionComponent<IAppProps> = (props) => {
+const App: React.FunctionComponent = (props) => {
   return (
-    <div className='App'>
-      <Outlet />
-    </div>
+    <Provider store={store}>
+      <div className='App'>
+        <Outlet />
+      </div>
+    </Provider>
   );
 };
 
