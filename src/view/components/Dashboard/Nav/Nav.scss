@@ -47,6 +47,19 @@
       }
     }
   }
+
+  @media (max-width: 972px) {
+    .links {
+      height: 93vh;
+    }
+  }
+
+  @media (max-width: 500px) {
+    .links {
+      height: 80rem;
+      width: 100%;
+    }
+  }
 }
 
 @keyframes slide {

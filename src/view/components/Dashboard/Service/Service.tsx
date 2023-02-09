@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import CreateOrder from './createOrder/CreateOrder';
 import TablesList from './Tables/TablesList';
 
 const Services: React.FunctionComponent = () => {
@@ -7,23 +8,22 @@ const Services: React.FunctionComponent = () => {
 
   return (
     <main className='container-fluid d-flex flex-column justify-content-evenly align-items-center py-3'>
-      <h1>Seleccionar Mesa</h1>
       {currentView === 'tables' ? (
         <TablesList selected={selected} setSelected={setSelected} />
       ) : (
-        <div>order </div>
+        <CreateOrder />
       )}
       <div className='d-flex gap-3'>
         {currentView !== 'tables' ? (
           <button
-            className='btn btn-danger mt-5'
+            className='btn btn-danger mt-2'
             onClick={() => setCurrentView('tables')}
           >
             Cancelar
           </button>
         ) : null}
         <button
-          className='btn mt-5'
+          className='btn mt-2'
           onClick={() =>
             currentView === 'tables' ? setCurrentView('order') : {}
           }

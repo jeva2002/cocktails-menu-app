@@ -38,6 +38,19 @@
 
     .dashboard {
       background-color: #f1f2f6;
+
+      .scroll-view {
+        padding: 3rem 1rem;
+        width: 100%;
+        max-height: 55vh;
+        overflow: auto;
+      }
+
+      @media (max-width: 972px) {
+        .scroll-view {
+          max-height: 72vh;
+        }
+      }
     }
 
     .btn {
@@ -72,7 +85,11 @@
 
       .main-container {
         border-radius: 0;
-        min-height: 700px;
+        min-height: 780px;
+      }
+
+      .front-page {
+        background-position: 40%;
       }
 
       .btn {

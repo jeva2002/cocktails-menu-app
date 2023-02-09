@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import getData from '../../model/api/getData';
 
-interface Cocktail {
+export interface Cocktail {
   id: string;
   name: string;
   img: string;
@@ -15,7 +15,7 @@ const getCocktailsAPI = createAsyncThunk(
   async () => {
     const response = await getData();
     const cocktails = response?.drinks.map((e: any) => {
-      return { id: e['idDrink'], name: e['strDrink'], img: e['strDrinkThumb'] };
+      return { id: e['idDrink'], name: e['strDrink'], img: e['strDrinkThumb'], ingredients: [] };
     });
     return cocktails;
   }
@@ -31,7 +31,7 @@ const cocktailsReducer = createSlice({
         console.error(action.payload);
       })
       .addCase(getCocktailsAPI.fulfilled, (state, action) => {
-        state.push(action.payload);
+        if (state.length === 0) state.push(...action.payload);
       });
   },
 });
