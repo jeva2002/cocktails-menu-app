@@ -1,17 +1,30 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CreateOrder from './createOrder/CreateOrder';
 import TablesList from './Tables/TablesList';
+import { Order, addOrder } from '../../../../controller/slices/orders';
+import { useDispatch } from 'react-redux';
+import { formatOrder } from '../../../../model/utils/FormatData';
 
 const Services: React.FunctionComponent = () => {
   const [currentView, setCurrentView] = useState('tables');
-  const [selected, setSelected] = useState(0);
+  const [selected, setSelected] = useState(1);
+  const [order, setOrder] = useState<Order>({
+    table: selected,
+    order: {},
+  });
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    setOrder({ ...order, table: selected });
+  }, [selected]);
 
   return (
     <main className='container-fluid d-flex flex-column justify-content-evenly align-items-center py-3'>
       {currentView === 'tables' ? (
         <TablesList selected={selected} setSelected={setSelected} />
       ) : (
-        <CreateOrder />
+        <CreateOrder setOrder={setOrder} />
       )}
       <div className='d-flex gap-3'>
         {currentView !== 'tables' ? (
@@ -25,10 +38,12 @@ const Services: React.FunctionComponent = () => {
         <button
           className='btn mt-2'
           onClick={() =>
-            currentView === 'tables' ? setCurrentView('order') : {}
+            currentView === 'tables'
+              ? setCurrentView('order')
+              : dispatch(addOrder(formatOrder(order))) && setCurrentView('tables')
           }
         >
-          Siguiente
+          {currentView === 'tables' ? 'Siguiente' : 'Confirmar'}
         </button>
       </div>
     </main>
