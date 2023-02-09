@@ -40,7 +40,8 @@ const Services: React.FunctionComponent = () => {
           onClick={() =>
             currentView === 'tables'
               ? setCurrentView('order')
-              : dispatch(addOrder(formatOrder(order))) && setCurrentView('tables')
+              : dispatch(addOrder(formatOrder(order))) &&
+                setCurrentView('tables')
           }
         >
           {currentView === 'tables' ? 'Siguiente' : 'Confirmar'}

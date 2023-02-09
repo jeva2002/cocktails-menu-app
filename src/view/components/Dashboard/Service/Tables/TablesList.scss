@@ -1,0 +1,24 @@
+.tables-list {
+  .table {
+    background-color: #fff;
+    width: 150px;
+    cursor: pointer;
+
+    input {
+      width: 15px;
+      height: 15px;
+    }
+  }
+
+  #pending {
+    background-color: #ddd;
+
+    img {
+      filter: grayscale(100%);
+    }
+
+    input {
+      background-color: #ddd;
+    }
+  }
+}

@@ -5,8 +5,7 @@ import LinksList, { TLinksList } from './LinksList';
 
 const servicesLinks: TLinksList = [
   ['Mesas', ''],
-  ['Hacer pedido', 'request'],
-  ['Estado del pedido', `request/${'tableId'}`],
+  ['Estado del pedido', `status`],
 ];
 
 const adminLinks: TLinksList = [

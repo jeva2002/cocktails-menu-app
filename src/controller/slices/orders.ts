@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface Order {
   table: number;
-  order: {};
+  order: [] | {};
 }
 
 const initialState: Order[] = [];
@@ -21,6 +21,7 @@ const ordersReducer = createSlice({
       )
         state.push(action.payload);
     },
+    updateOrder: () => {},
     removeOrder: (state, action) => {},
   },
 });
