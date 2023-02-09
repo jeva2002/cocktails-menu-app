@@ -1,4 +1,4 @@
-import { getOrders, Order } from '../../../../../controller/slices/orders';
+import { Order } from '../../../../../controller/slices/orders';
 import { arrowDown, trash } from '../../../../../assets/icons/index';
 import './OrderList.scss';
 import { useState } from 'react';

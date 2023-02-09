@@ -35,6 +35,14 @@ const router = createBrowserRouter([
             path: '/dashboard/status/:tableId',
             element: <EditOrder />,
           },
+          {
+            path: '/dashboard/account/',
+            element: <EditOrder />,
+          },
+          {
+            path: '/dashboard/account/:tableId',
+            element: <EditOrder />,
+          },
         ],
       },
     ],

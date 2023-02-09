@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { getCocktailsContext } from '../../../../../controller/slices/cocktails';
 import { Order } from '../../../../../controller/slices/orders';

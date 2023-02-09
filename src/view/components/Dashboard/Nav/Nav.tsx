@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import './Nav.scss';
 import { menu } from '../../../../assets/icons';
 import LinksList, { TLinksList } from './LinksList';
+import './Nav.scss';
 
 const servicesLinks: TLinksList = [
   ['Mesas', ''],
