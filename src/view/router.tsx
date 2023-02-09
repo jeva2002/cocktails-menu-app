@@ -1,7 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from './App';
 import Services from './components/Dashboard/Service/Service';
-import Status from './components/Dashboard/Status/Status';
+import EditOrder from './components/Dashboard/Status/EditOrder/EditOrder';
+import Orders from './components/Dashboard/Status/OrderList/Orders';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -28,7 +29,11 @@ const router = createBrowserRouter([
           },
           {
             path: '/dashboard/status',
-            element: <Status />,
+            element: <Orders />,
+          },
+          {
+            path: '/dashboard/status/:tableId',
+            element: <EditOrder />,
           },
         ],
       },

@@ -1,0 +1,19 @@
+.amount-input {
+  width: 50px;
+}
+
+.name-input {
+  width: 300px;
+}
+
+@media (max-width: 450px) {
+  .name-input {
+    width: 250px;
+  }
+}
+
+@media (max-width: 350px) {
+  .name-input {
+    width: 130px;
+  }
+}

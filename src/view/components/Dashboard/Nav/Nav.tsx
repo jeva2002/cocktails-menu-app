@@ -36,11 +36,13 @@ const Nav: React.FunctionComponent = () => {
           linksList={servicesLinks}
           title='Servicios'
           setCurrentPage={setCurrentPage}
+          setShowLinks={setShowLinks}
         />
         <LinksList
           linksList={adminLinks}
           title='Admin'
           setCurrentPage={setCurrentPage}
+          setShowLinks={setShowLinks}
         />
       </div>
     </nav>

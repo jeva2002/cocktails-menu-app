@@ -5,6 +5,7 @@ interface Props {
   text: string;
   link: string;
   setCurrentPage: React.Dispatch<React.SetStateAction<string>>;
+  setShowLinks: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const setIsActive = ({ isActive }: { isActive: boolean; isPending: boolean }) =>
@@ -18,6 +19,7 @@ const Link: React.FunctionComponent<Props> = ({
   text,
   link,
   setCurrentPage,
+  setShowLinks,
 }) => {
   return (
     <NavLink
@@ -25,6 +27,7 @@ const Link: React.FunctionComponent<Props> = ({
       to={'/dashboard/' + link}
       onClick={(e) => {
         setCurrentPage(e.currentTarget.innerText);
+        setShowLinks(false);
       }}
     >
       {text}
