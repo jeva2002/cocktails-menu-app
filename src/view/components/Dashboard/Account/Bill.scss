@@ -1,0 +1,46 @@
+.bill-list {
+  height: 43vh;
+  .item {
+    padding: 10px 20px;
+    margin: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    img {
+      width: 100px;
+    }
+    div {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
+
+.total {
+  width: 100%;
+  padding: 0 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bill-list {
+  .item:nth-child(2n - 1) {
+    background-color: #D7E8BA;
+  }
+}
+
+@media (max-width: 500px) {
+  .bill-list {
+    .item {
+      flex-direction: column;
+
+      div {
+        align-items: center;
+        justify-content: space-evenly;
+        gap: 5px
+      }
+    }
+  }
+}

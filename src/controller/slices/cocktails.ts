@@ -62,5 +62,9 @@ export const {} = cocktailsReducer.actions;
 
 export const getCocktailsContext = (state: { cocktails: Cocktail[] }) =>
   state.cocktails;
+export const getOneCocktail = (
+  state: { cocktails: Cocktail[] },
+  name: string
+) => state.cocktails.find((cocktail) => cocktail.name === name);
 
 export default cocktailsReducer.reducer;

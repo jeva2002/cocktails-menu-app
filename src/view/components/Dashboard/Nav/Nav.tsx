@@ -6,6 +6,7 @@ import './Nav.scss';
 const servicesLinks: TLinksList = [
   ['Mesas', ''],
   ['Estado del pedido', `status`],
+  ['Cuentas', 'account'],
 ];
 
 const adminLinks: TLinksList = [

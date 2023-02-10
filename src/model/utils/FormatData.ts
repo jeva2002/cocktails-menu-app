@@ -13,3 +13,11 @@ export const formatOrder = (order: Order) => {
     order: orderArray.filter((e) => e[1] !== undefined),
   };
 };
+
+export const getTotal = (totalList: number[] | undefined) => {
+  if (totalList) {
+    return totalList.reduce(
+      (accumulator, currentValue) => accumulator + currentValue
+    );
+  }
+};
