@@ -8,6 +8,7 @@ import {
   collection,
   CollectionReference,
   DocumentData,
+  getDoc,
 } from 'firebase/firestore';
 import { app } from './config';
 
@@ -18,10 +19,20 @@ export const cocktailsCollection = collection(db, 'cocktails');
 export const createDocument = async (
   data: any,
   collection: string,
-  document: string
+  document: string,
+  options?: {}
 ) => {
   try {
-    return await setDoc(doc(db, collection, document), data);
+    return await setDoc(doc(db, collection, document), data, options ?? {});
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getDocument = async (path: string) => {
+  try {
+    const document = await getDoc(doc(db, path));
+    return document.data();
   } catch (error) {
     throw error;
   }

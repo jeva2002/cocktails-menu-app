@@ -3,10 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectUser } from '../../controller/slices/user';
 import Nav from '../components/Dashboard/Nav/Nav';
 import { useEffect } from 'react';
-import {
-  getCocktailsAPI,
-  getCocktailsContext,
-} from '../../controller/slices/cocktails';
+import { getCocktailsAPI } from '../../controller/slices/cocktails';
+import { createDailyAccount } from '../../controller/handlers/dashboard/accounts';
 
 const Dashboard: React.FunctionComponent = () => {
   const user = useSelector(selectUser);
@@ -14,6 +12,7 @@ const Dashboard: React.FunctionComponent = () => {
 
   useEffect(() => {
     dispatch(getCocktailsAPI());
+    createDailyAccount();
   }, []);
 
   if (user.email === '' && user.username === '') return <Navigate to='/' />;

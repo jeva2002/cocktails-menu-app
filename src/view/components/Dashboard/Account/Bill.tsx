@@ -1,12 +1,20 @@
-import * as React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
+import {
+  handlePay,
+  Tables,
+} from '../../../../controller/handlers/dashboard/accounts';
 import {
   Cocktail,
   getOneCocktail,
 } from '../../../../controller/slices/cocktails';
-import { getOneOrder, Order } from '../../../../controller/slices/orders';
+import {
+  getOneOrder,
+  Order,
+  removeOrder,
+} from '../../../../controller/slices/orders';
 import { getTotal } from '../../../../model/utils/FormatData';
+import BillItem from './BillItem';
 import './Bill.scss';
 
 const Bill: React.FunctionComponent = () => {
@@ -29,27 +37,14 @@ const Bill: React.FunctionComponent = () => {
     )
   );
 
+  const dispatch = useDispatch();
+
   return (
     <main className='d-flex flex-column align-items-center'>
       <h1 className='mt-4'>Factura Mesa {tableId}</h1>
       <ul className='bill-list scroll-view'>
-        {cocktailsList?.map((e, index) => (
-          <li className='item' key={index}>
-            <img src={e?.img} alt={e?.name} />
-            <div>
-              <small>{e?.name}</small>
-              <b>c/u $ {e?.price}</b>
-            </div>
-            <div>
-              <small>Cantidad: {e?.amount}</small>
-              <b>
-                Total: ${' '}
-                {e?.amount && e.price
-                  ? parseInt(`${e?.amount}`) * e?.price
-                  : null}
-              </b>
-            </div>
-          </li>
+        {cocktailsList?.map((cocktail, index) => (
+          <BillItem key={index} cocktail={cocktail} />
         ))}
       </ul>
       <div className='total'>
@@ -65,8 +60,13 @@ const Bill: React.FunctionComponent = () => {
         </button>
         <button
           className='btn'
-          onClick={() => {
-            navigate('/dashboard/account');
+          onClick={async () => {
+            navigate('/dashboard/');
+            await handlePay(
+              Tables[tableId ? parseInt(tableId) - 1 : 0],
+              total ?? 0
+            );
+            dispatch(removeOrder(parseInt(tableId ?? '0')));
           }}
         >
           Pagar
