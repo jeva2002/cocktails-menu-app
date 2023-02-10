@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import App from './App';
 import AccountsList from './components/Dashboard/Account/AccountsList';
 import Bill from './components/Dashboard/Account/Bill';
+import SalesReport from './components/Dashboard/SalesReport/SalesReport';
 import Services from './components/Dashboard/Service/Service';
 import EditOrder from './components/Dashboard/Status/EditOrder/EditOrder';
 import Orders from './components/Dashboard/Status/OrderList/Orders';
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
           {
             path: '/dashboard/account/:tableId',
             element: <Bill />,
+          },
+          {
+            path: '/dashboard/sales',
+            element: <SalesReport />,
           },
         ],
       },

@@ -1,6 +1,6 @@
 import { Formik } from 'formik';
 import handleLogin from '../../controller/handlers/login';
-import { LOGIN_VALIDATION } from '../../model/utils/FormValidations';
+import { LOGIN_VALIDATION } from '../../model/utils/formValidations';
 import Form from '../components/Login/Form';
 import logo from '../../assets/imgs/logo.png';
 import { useDispatch, useSelector } from 'react-redux';

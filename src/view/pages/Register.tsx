@@ -1,5 +1,5 @@
 import { Formik } from 'formik';
-import { REGISTER_VALIDATION } from '../../model/utils/FormValidations';
+import { REGISTER_VALIDATION } from '../../model/utils/formValidations';
 import Form from '../components/Register/Form';
 import logo from '../../assets/imgs/logo.png';
 import handleRegister from '../../controller/handlers/register';

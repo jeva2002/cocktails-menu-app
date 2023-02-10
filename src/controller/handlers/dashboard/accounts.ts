@@ -1,19 +1,17 @@
-import { format } from 'date-fns';
 import {
   createDocument,
   getDocument,
   updateDocument,
 } from '../../../model/firebase/firestore';
+import { today } from '../../../model/utils/dates';
 
 export interface Account {
-  eighthTable?: number;
-  seventhTable?: number;
-  sixthTable?: number;
-  fifthTable?: number;
-  fourthTable?: number;
-  thirdTable?: number;
-  secondTable?: number;
   firstTable?: number;
+  secondTable?: number;
+  thirdTable?: number;
+  fourthTable?: number;
+  fifthTable?: number;
+  sixthTable?: number;
 }
 
 export enum Tables {
@@ -28,23 +26,22 @@ export enum Tables {
 }
 
 const newAccount: Account = {
-  eighthTable: 0,
-  seventhTable: 0,
-  sixthTable: 0,
-  fifthTable: 0,
-  fourthTable: 0,
-  thirdTable: 0,
-  secondTable: 0,
   firstTable: 0,
+  secondTable: 0,
+  thirdTable: 0,
+  fourthTable: 0,
+  fifthTable: 0,
+  sixthTable: 0,
 };
 
-const date = format(Date.now(), 'dd-MM-yyyy');
+export const dailyAccount: any = async () =>
+  await getDocument('accounts/' + today);
 
 export const createDailyAccount = async () => {
   try {
-    const docRef: any = await getDocument('accounts/' + date);
-    if (docRef.eighthTable === undefined) {
-      const newDoc = await createDocument(newAccount, 'accounts', date);
+    const account = await dailyAccount();
+    if (account?.firstTable === undefined) {
+      const newDoc = await createDocument(newAccount, 'accounts', today);
       return newDoc;
     }
   } catch (error) {
@@ -54,9 +51,9 @@ export const createDailyAccount = async () => {
 
 export const handlePay = async (table: string, total: number) => {
   try {
-    const docRef: any = await getDocument('accounts/' + date);
-    docRef[table] = docRef[table] + total;
-    return await updateDocument(docRef, 'accounts', date);
+    const account = await dailyAccount();
+    account[table] = account[table] + total;
+    return await updateDocument(account, 'accounts', today);
   } catch (error) {
     console.error(error);
   }

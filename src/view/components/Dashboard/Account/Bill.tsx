@@ -13,7 +13,7 @@ import {
   Order,
   removeOrder,
 } from '../../../../controller/slices/orders';
-import { getTotal } from '../../../../model/utils/FormatData';
+import { getTotal } from '../../../../model/utils/formatData';
 import BillItem from './BillItem';
 import './Bill.scss';
 

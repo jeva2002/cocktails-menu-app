@@ -3,7 +3,7 @@ import CreateOrder from './createOrder/CreateOrder';
 import TablesList from './Tables/TablesList';
 import { Order, addOrder } from '../../../../controller/slices/orders';
 import { useDispatch } from 'react-redux';
-import { formatOrder } from '../../../../model/utils/FormatData';
+import { formatOrder } from '../../../../model/utils/formatData';
 
 const Services: React.FunctionComponent = () => {
   const [currentView, setCurrentView] = useState('tables');

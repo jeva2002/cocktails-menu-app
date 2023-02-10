@@ -10,7 +10,7 @@ const servicesLinks: TLinksList = [
 ];
 
 const adminLinks: TLinksList = [
-  ['Ventas del día', 'sales'],
+  ['Reporte de ventas', 'sales'],
   ['Inventario', 'inventory'],
   ['Crear bebida', 'new-cocktail'],
   ['Agregar ingredientes', 'add-ingredient'],
