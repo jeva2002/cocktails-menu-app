@@ -4,12 +4,16 @@ import {
   cocktailsCollection,
   getAllDocuments,
 } from '../../model/firebase/firestore';
+import { createDailyInventory } from '../handlers/dashboard/inventory';
 
 export interface Cocktail {
   id: string;
   name: string;
   img: string;
-  ingredients: string[];
+  ingredients: {
+    name: string;
+    amount: number;
+  }[];
   price: number;
 }
 
@@ -38,6 +42,8 @@ const getCocktailsAPI = createAsyncThunk(
         cocktail.ingredients = correspondent.ingredients;
       });
     }
+
+    await createDailyInventory();
     return cocktails;
   }
 );

@@ -7,9 +7,7 @@ import {
 import { today } from '../../../../model/utils/dates';
 import './SalesReport.scss';
 
-interface IAppProps {}
-
-const SalesReport: React.FunctionComponent<IAppProps> = (props) => {
+const SalesReport: React.FunctionComponent = () => {
   const [sales, setSales] = useState<Account>();
 
   useEffect(() => {

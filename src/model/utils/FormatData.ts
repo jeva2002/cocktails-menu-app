@@ -21,3 +21,14 @@ export const getTotal = (totalList: number[] | undefined) => {
     );
   }
 };
+
+export const camelCase = (phrase: string) => {
+  const listOfWords: string[] = phrase.split(' ');
+  let result = '';
+  listOfWords.forEach((word, index) => {
+    word = word.toLowerCase();
+    if (index > 0) word = capitalize(word);
+    result += word;
+  });
+  return result;
+};
