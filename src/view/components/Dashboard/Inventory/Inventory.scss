@@ -1,0 +1,15 @@
+.inventory {
+  .inventory-list {
+    height: 25rem;
+
+    li {
+      span {
+        width: 100px;
+      }
+    }
+
+    li:nth-child(2n - 1) {
+      background-color: #9799CA;
+    }
+  }
+}

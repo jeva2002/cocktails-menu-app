@@ -33,7 +33,7 @@ const SalesReport: React.FunctionComponent = () => {
   };
 
   return (
-    <main className='sales sm:px-5 px-0 py-3 d-flex flex-column justify-content-between align-items-center gap-4'>
+    <main className='sales px-sm-5 px-0 py-3 d-flex flex-column justify-content-between align-items-center gap-4'>
       <div>
         <h1>Ventas Por Mesa</h1>
         <small className='h5'>{today}</small>
