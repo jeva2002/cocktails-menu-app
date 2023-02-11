@@ -4,7 +4,10 @@ import {
   cocktailsCollection,
   getAllDocuments,
 } from '../../model/firebase/firestore';
-import { createDailyInventory } from '../handlers/dashboard/inventory';
+import {
+  createDailyInventory,
+  listenInventory,
+} from '../handlers/dashboard/inventory';
 
 export interface Cocktail {
   id: string;
@@ -42,8 +45,6 @@ const getCocktailsAPI = createAsyncThunk(
         cocktail.ingredients = correspondent.ingredients;
       });
     }
-
-    await createDailyInventory();
     return cocktails;
   }
 );

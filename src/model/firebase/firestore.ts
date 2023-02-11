@@ -9,6 +9,7 @@ import {
   CollectionReference,
   DocumentData,
   getDoc,
+  onSnapshot,
 } from 'firebase/firestore';
 import { app } from './config';
 
@@ -70,4 +71,14 @@ export const deleteDocument = async (collection: string, document: string) => {
   } catch (error) {
     throw error;
   }
+};
+
+export const listenDocument = async (
+  collection: string,
+  document: string,
+  callback: () => Promise<void>
+) => {
+  return onSnapshot(doc(db, collection, document), () => {
+    if (callback) callback();
+  });
 };

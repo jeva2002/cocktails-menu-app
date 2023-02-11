@@ -5,6 +5,11 @@ import Nav from '../components/Dashboard/Nav/Nav';
 import { useEffect } from 'react';
 import { getCocktailsAPI } from '../../controller/slices/cocktails';
 import { createDailyAccount } from '../../controller/handlers/dashboard/accounts';
+import {
+  createDailyInventory,
+  listenInventory,
+} from '../../controller/handlers/dashboard/inventory';
+import { Unsubscribe } from 'firebase/firestore';
 
 const Dashboard: React.FunctionComponent = () => {
   const user = useSelector(selectUser);
@@ -13,6 +18,14 @@ const Dashboard: React.FunctionComponent = () => {
   useEffect(() => {
     dispatch(getCocktailsAPI());
     createDailyAccount();
+    createDailyInventory();
+    
+    let unsub: Unsubscribe | undefined;
+    listenInventory().then((res) => (unsub = res));
+
+    return () => {
+      if (unsub) unsub();
+    };
   }, []);
 
   if (user.email === '' && user.username === '') return <Navigate to='/' />;
