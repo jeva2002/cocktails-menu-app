@@ -15,3 +15,8 @@ export const REGISTER_VALIDATION = Yup.object().shape({
   username: Yup.string().required('Se requiere un nombre de usuario'),
   name: Yup.string().required('Se requiere de un nombre'),
 });
+
+export const ADD_INGREDIENT_VALIDATION = Yup.object().shape({
+  amount: Yup.number().required().integer().positive(),
+  name: Yup.string().required(),
+});

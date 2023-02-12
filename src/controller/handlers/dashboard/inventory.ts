@@ -2,6 +2,7 @@ import {
   createDocument,
   getDocument,
   listenDocument,
+  updateDocument,
 } from '../../../model/firebase/firestore';
 import { today } from '../../../model/utils/dates';
 import store from '../../../model/store/store';
@@ -58,6 +59,52 @@ const updateDailyInventory = async () => {
   } catch (error) {
     console.error(error);
   }
+};
+
+const formatIngredientsList = (
+  ingredients: ({ name: string; amount: number }[] | undefined)[]
+) => {
+  return ingredients
+    .map((ingredientsPerCocktail) => {
+      return ingredientsPerCocktail?.map((ingredient) => {
+        return Object.values(ingredient);
+      });
+    })
+    .flatMap((num) => num)
+    .map((ingredient) => {
+      if (ingredient)
+        return [
+          typeof ingredient[0] === 'string'
+            ? camelCase(ingredient[0])
+            : camelCase(ingredient[1].toString()),
+          typeof ingredient[0] === 'string' ? ingredient[1] : ingredient[0],
+        ];
+    });
+};
+
+export const modifyIngredientsInventory = async (
+  ingredients: ({ name: string; amount: number }[] | undefined)[],
+  operation: '+' | '-' | 'new'
+) => {
+  const ingredientsList = formatIngredientsList(ingredients);
+  let inventory = await getIngredients();
+  ingredientsList.forEach((ingredient) => {
+    if (ingredient) {
+      operation === 'new'
+        ? (inventory = {
+            ...inventory,
+            [`${ingredient[0]}`]: Number(ingredient[1]),
+          })
+        : (inventory = {
+            ...inventory,
+            [`${ingredient[0]}`]:
+              operation === '+'
+                ? inventory[`${ingredient[0]}`] + Number(ingredient[1])
+                : inventory[`${ingredient[0]}`] - Number(ingredient[1]),
+          });
+    }
+  });
+  await updateDocument(inventory, 'inventory', 'ingredients');
 };
 
 export const listenInventory = async () => {

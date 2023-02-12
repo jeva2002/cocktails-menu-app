@@ -29,9 +29,18 @@
     filter: invert(99%) sepia(26%) saturate(325%) hue-rotate(31deg)
       brightness(90%) contrast(90%);
   }
+}
 
-  .error {
-    padding-left: 10px;
-    color: red;
+.select {
+  select {
+    width: 250px;
+    padding: 10px 22.5px;
+    border: none;
+    border-radius: 5px;
   }
+}
+
+.error {
+  padding-left: 10px;
+  color: red;
 }

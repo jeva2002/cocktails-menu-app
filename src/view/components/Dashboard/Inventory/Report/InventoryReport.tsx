@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import {
   dailyInventory,
   getIngredients,
-} from '../../../../controller/handlers/dashboard/inventory';
-import { today } from '../../../../model/utils/dates';
-import { revertCamelCase } from '../../../../model/utils/formatData';
-import './Inventory.scss';
+} from '../../../../../controller/handlers/dashboard/inventory';
+import { today } from '../../../../../model/utils/dates';
+import { revertCamelCase } from '../../../../../model/utils/formatData';
+import '../Inventory.scss';
 import InventoryList from './InventoryList';
 
 const InventoryReport: React.FunctionComponent = (props) => {
