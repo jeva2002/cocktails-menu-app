@@ -5,7 +5,10 @@ interface Props {
         id: string;
         name: string;
         img: string;
-        ingredients: string[];
+        ingredients: {
+          name: string;
+          amount: number;
+        }[];
         price: number;
       }
     | undefined;

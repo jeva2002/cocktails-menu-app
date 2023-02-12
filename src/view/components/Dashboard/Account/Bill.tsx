@@ -64,6 +64,9 @@ const Bill: React.FunctionComponent = () => {
             navigate('/dashboard/');
             await handlePay(
               Tables[tableId ? parseInt(tableId) - 1 : 0],
+              cocktailsList?.map((item) => {
+                return item?.ingredients;
+              }) ?? [],
               total ?? 0
             );
             dispatch(removeOrder(parseInt(tableId ?? '0')));

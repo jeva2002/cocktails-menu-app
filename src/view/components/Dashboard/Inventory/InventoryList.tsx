@@ -6,7 +6,7 @@ const InventoryList: React.FunctionComponent<Props> = ({ list }) => {
   return (
     <>
       <ul className='scroll-view inventory-list m-0'>
-        {list.map((item) => (
+        {list.sort().map((item) => (
           <li
             className='d-flex justify-content-around align-items-center'
             key={item[0]}
@@ -16,7 +16,7 @@ const InventoryList: React.FunctionComponent<Props> = ({ list }) => {
           </li>
         ))}
       </ul>
-      <div className='d-flex justify-content-between border border-dark rounded position-relative mt-2 px-sm-5 px-1 py-2'>
+      <div className='d-flex justify-content-between border border-dark rounded position-relative mt-2 px-5 py-2'>
         <span className='h4'>Total:</span>
         <span className='h4'>
           {list.length > 0
