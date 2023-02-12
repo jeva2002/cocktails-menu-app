@@ -1,45 +1,53 @@
 import { useEffect, useState } from 'react';
-import { dailyInventory } from '../../../../controller/handlers/dashboard/inventory';
+import {
+  dailyInventory,
+  getIngredients,
+} from '../../../../controller/handlers/dashboard/inventory';
+import { today } from '../../../../model/utils/dates';
+import { revertCamelCase } from '../../../../model/utils/formatData';
 import './Inventory.scss';
+import InventoryList from './InventoryList';
 
 const InventoryReport: React.FunctionComponent = (props) => {
-  const [avalaibleCocktails, setAvalaibleCocktails] = useState<
-    [string, unknown][]
-  >([]);
+  const [list, setList] = useState<[string, unknown][]>([]);
 
   useEffect(() => {
     dailyInventory().then((res: {}) => {
-      setAvalaibleCocktails(Object.entries(res));
+      setList(Object.entries(res));
     });
   }, []);
 
-  useEffect(() => {
-    console.log(avalaibleCocktails);
-    console.log(avalaibleCocktails.map((e) => Number(e[1])));
-  }, [avalaibleCocktails]);
-
   return (
     <main className='inventory px-sm-5 px-1 py-2'>
-      <h1 className='pt-2 text-center'>Bebidas disponibles</h1>
-      <ul className='scroll-view inventory-list m-0'>
-        {avalaibleCocktails.map((item) => (
-          <li
-            className='d-flex justify-content-around align-items-center'
-            key={item[0]}
-          >
-            <span className='text-center'>{item[0]}</span>
-            <span className='text-center'>{Number(item[1])}</span>
-          </li>
-        ))}
-      </ul>
-      <div className='d-flex justify-content-between border border-dark rounded position-relative mt-2 px-sm-5 px-1 py-2'>
-        <span className='h4'>Bebidas disponibles</span>
-        <span className='h4'>
-          {avalaibleCocktails
-            .map((item) => Number(item[1]))
-            .reduce((accumulator, current) => accumulator + current)}
-        </span>
+      <div className='text-center'>
+        <h1>Inventario</h1>
+        <h2 className='h5'>{today}</h2>
       </div>
+      <menu className='options d-flex justify-content-evenly'>
+        <b
+          onClick={() => {
+            dailyInventory().then((res: {}) => {
+              setList(Object.entries(res));
+            });
+          }}
+        >
+          Bebidas
+        </b>
+        <b
+          onClick={() => {
+            getIngredients().then((res: {}) => {
+              const ingredients = Object.entries(res);
+              ingredients.forEach((ingredient) => {
+                ingredient[0] = revertCamelCase(ingredient[0]);
+              });
+              setList(ingredients);
+            });
+          }}
+        >
+          Ingredientes
+        </b>
+      </menu>
+      <InventoryList list={list} />
     </main>
   );
 };

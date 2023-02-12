@@ -39,14 +39,14 @@ const SalesReport: React.FunctionComponent = () => {
         <small className='h5'>{today}</small>
       </div>
       {sales && (
-        <ul className='w-75 w-sm-100 sales-list'>
+        <ul className='w-sm-100 sales-list'>
           {formatSales()?.map((sale) => (
             <li
-              className='h4 py-1 px-sm-5 px-0 d-flex align-items-center'
+              className='d-flex justify-content-between h4 py-1 px-sm-5 px-2 d-flex align-items-center'
               key={sale?.table}
             >
-              <span className='col-6'>Mesa {sale?.table}</span>
-              <span className='col-6'>${' ' + sale?.total}</span>
+              <span className=''>Mesa {sale?.table}</span>
+              <span className=''>${' ' + sale?.total}</span>
             </li>
           ))}
         </ul>

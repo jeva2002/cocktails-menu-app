@@ -1,7 +1,13 @@
 .inventory {
-  .inventory-list {
-    height: 25rem;
+  .options {
+    b:hover {
+      color: #9799ca;
+      cursor: pointer;
+    }
+  }
 
+  .inventory-list {
+    height: 42vh;
     li {
       span {
         width: 100px;
@@ -9,7 +15,15 @@
     }
 
     li:nth-child(2n - 1) {
-      background-color: #9799CA;
+      background-color: #9799ca;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .inventory {
+    .inventory-list {
+      height: 65vh;
     }
   }
 }

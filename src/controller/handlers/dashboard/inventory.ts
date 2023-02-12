@@ -11,7 +11,8 @@ import { DocumentData } from 'firebase/firestore';
 export const dailyInventory: any = async () =>
   await getDocument('inventory/' + today);
 
-const getIngredients = async () => await getDocument('inventory/ingredients');
+export const getIngredients: any = async () =>
+  await getDocument('inventory/ingredients');
 
 const formatInventory = (ingredients: DocumentData) => {
   const cocktails: any = store.getState().cocktails.map((e) => {

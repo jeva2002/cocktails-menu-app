@@ -32,3 +32,22 @@ export const camelCase = (phrase: string) => {
   });
   return result;
 };
+
+export const revertCamelCase = (phrase: string) => {
+  const letters = phrase.split('');
+  const words: string[] = [];
+  let contador = 0;
+  letters.forEach((letter, index) => {
+    if (index === 0) words[0] = letter.toUpperCase();
+    else if (/[A-Z]/.test(letter)) {
+      words.push(letter);
+      contador += 1;
+    } else words[contador] += letter;
+  });
+  let finalPhrase = '';
+  words.forEach((word, index) => {
+    if (index === 0) finalPhrase = word;
+    else finalPhrase += ' ' + word;
+  });
+  return finalPhrase;
+};
