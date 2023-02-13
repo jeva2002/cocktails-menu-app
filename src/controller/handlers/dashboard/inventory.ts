@@ -9,6 +9,7 @@ import store from '../../../model/store/store';
 import {
   camelCase,
   formatIngredientsList,
+  revertCamelCase,
 } from '../../../model/utils/formatData';
 import { DocumentData } from 'firebase/firestore';
 
@@ -22,6 +23,7 @@ const formatInventory = (ingredients: DocumentData) => {
   const cocktails: any = store.getState().cocktails.map((e) => {
     return { [e.name]: [...e.ingredients] };
   });
+  console.log(cocktails);
   let inventory = {};
   cocktails.map((e: any) => {
     const ingredientsPerCocktail = Object.values(e).flatMap((num) => num);
@@ -53,15 +55,15 @@ export const createDailyInventory = async () => {
 };
 
 const updateDailyInventory = async () => {
-  try {
-    const ingredients = await getIngredients();
-    if (ingredients) {
-      const inventory = formatInventory(ingredients);
-      await createDocument(inventory, 'inventory', today);
-    }
-  } catch (error) {
-    console.error(error);
-  }
+  // try {
+  //   const ingredients = await getIngredients();
+  //   if (ingredients) {
+  //     const inventory = formatInventory(ingredients);
+  //     await createDocument(inventory, 'inventory', today);
+  //   }
+  // } catch (error) {
+  //   console.error(error);
+  // }
 };
 
 export const modifyIngredientsInventory = async (

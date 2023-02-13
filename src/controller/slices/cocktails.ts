@@ -4,6 +4,7 @@ import {
   cocktailsCollection,
   getAllDocuments,
 } from '../../model/firebase/firestore';
+import { revertCamelCase } from '../../model/utils/formatData';
 import { getCustomCocktails } from '../handlers/dashboard/customCocktails';
 
 export interface Cocktail {
@@ -44,7 +45,17 @@ const getCocktailsAPI = createAsyncThunk(
       const exist = await getCustomCocktails();
       if (exist) {
         const customCocktails: Cocktail[] = Object.values(exist);
-        customCocktails.forEach((cocktail) => cocktails.push(cocktail));
+        customCocktails.forEach((cocktail) =>
+          cocktails.push({
+            ...cocktail,
+            ingredients: cocktail.ingredients.map((ingredient) => {
+              return {
+                name: revertCamelCase(ingredient.name),
+                amount: ingredient.amount,
+              };
+            }),
+          })
+        );
       }
     }
     return cocktails;

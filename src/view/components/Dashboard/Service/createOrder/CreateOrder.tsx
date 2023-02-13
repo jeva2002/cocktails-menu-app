@@ -1,4 +1,6 @@
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { dailyInventory } from '../../../../../controller/handlers/dashboard/inventory';
 import { getCocktailsContext } from '../../../../../controller/slices/cocktails';
 import Cocktail from './Cocktail';
 import './CreateOrder.scss';
@@ -14,6 +16,17 @@ interface Props {
 
 const CreateOrder: React.FunctionComponent<Props> = ({ setOrder }) => {
   const cocktails = useSelector(getCocktailsContext);
+
+  const [inventory, setInventory] = useState<[string, any][]>([]);
+
+  useEffect(() => {
+    dailyInventory().then((res: {}) => {
+      setInventory(Object.entries(res));
+    });
+    console.log(
+      inventory.find((e) => e.find((cocktail) => cocktail.name === e[0]))
+    );
+  }, []);
 
   return (
     <>
