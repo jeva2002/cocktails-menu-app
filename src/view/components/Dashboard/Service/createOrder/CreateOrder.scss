@@ -16,3 +16,18 @@
     justify-content: center;
   }
 }
+
+#pending {
+  background-color: #ddd;
+
+  img {
+    filter: grayscale(100%);
+  }
+
+  div {
+    .cocktail-btn {
+      user-select: none;
+      background-color: #ddd;
+    }
+  }
+}

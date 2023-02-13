@@ -23,31 +23,40 @@ const CreateOrder: React.FunctionComponent<Props> = ({ setOrder }) => {
     dailyInventory().then((res: {}) => {
       setInventory(Object.entries(res));
     });
-    console.log(
-      inventory.find((e) => e.find((cocktail) => cocktail.name === e[0]))
-    );
   }, []);
+
+  const shortage = (name: string) => {
+    const currentCocktail = inventory.find(
+      (item: [string, number]) => item[0] === name
+    );
+    if (currentCocktail) return currentCocktail[1] <= 0 ? true : false;
+    else return false;
+  };
 
   return (
     <>
       <h1>Crear orden</h1>
       <section className='scroll-view d-flex flex-wrap justify-content-evenly gap-1'>
         {cocktails.map((e, index) => (
-          <Cocktail
-            key={index}
-            setOrder={(amount) => {
-              setOrder((value) => {
-                return {
-                  table: value.table,
-                  order: {
-                    ...value.order,
-                    [e.name]: amount > 0 ? amount : undefined,
-                  },
-                };
-              });
-            }}
-            cocktail={e}
-          />
+          <>
+            <Cocktail
+              key={index}
+              setOrder={(amount) => {
+                setOrder((value) => {
+                  return {
+                    table: value.table,
+                    order: {
+                      ...value.order,
+                      [e.name]: amount > 0 ? amount : undefined,
+                    },
+                  };
+                });
+              }}
+              cocktail={e}
+              shortage={shortage(e.name)}
+            />
+            {}
+          </>
         ))}
       </section>
     </>

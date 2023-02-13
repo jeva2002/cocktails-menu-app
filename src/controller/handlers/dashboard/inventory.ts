@@ -55,15 +55,15 @@ export const createDailyInventory = async () => {
 };
 
 const updateDailyInventory = async () => {
-  // try {
-  //   const ingredients = await getIngredients();
-  //   if (ingredients) {
-  //     const inventory = formatInventory(ingredients);
-  //     await createDocument(inventory, 'inventory', today);
-  //   }
-  // } catch (error) {
-  //   console.error(error);
-  // }
+  try {
+    const ingredients = await getIngredients();
+    if (ingredients) {
+      const inventory = formatInventory(ingredients);
+      await createDocument(inventory, 'inventory', today);
+    }
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const modifyIngredientsInventory = async (
