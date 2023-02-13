@@ -1,4 +1,8 @@
-import { createDocument, getDocument } from '../../../model/firebase/firestore';
+import {
+  createDocument,
+  getDocument,
+  listenDocument,
+} from '../../../model/firebase/firestore';
 import { camelCase } from '../../../model/utils/formatData';
 import { Cocktail } from '../../slices/cocktails';
 
@@ -22,4 +26,10 @@ export const createCustomCocktail = async (data: Cocktail) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+export const listenCustomCocktails = async (setCocktails: () => void) => {
+  return await listenDocument('cocktails', 'customCocktails', async () => {
+    setCocktails();
+  });
 };

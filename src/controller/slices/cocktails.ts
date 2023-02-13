@@ -4,8 +4,7 @@ import {
   cocktailsCollection,
   getAllDocuments,
 } from '../../model/firebase/firestore';
-import { revertCamelCase } from '../../model/utils/formatData';
-import { getCustomCocktails } from '../handlers/dashboard/customCocktails';
+import { formatCocktails } from '../../model/utils/formatData';
 
 export interface Cocktail {
   id?: string;
@@ -35,28 +34,7 @@ const getCocktailsAPI = createAsyncThunk(
     });
     const ingredientsAndPrice: any = await getAllDocuments(cocktailsCollection);
     if (Array.isArray(ingredientsAndPrice) && Array.isArray(cocktails)) {
-      cocktails.forEach((cocktail) => {
-        const correspondent = ingredientsAndPrice.find(
-          (e) => e.id === cocktail.id
-        );
-        cocktail.price = correspondent.price;
-        cocktail.ingredients = correspondent.ingredients;
-      });
-      const exist = await getCustomCocktails();
-      if (exist) {
-        const customCocktails: Cocktail[] = Object.values(exist);
-        customCocktails.forEach((cocktail) =>
-          cocktails.push({
-            ...cocktail,
-            ingredients: cocktail.ingredients.map((ingredient) => {
-              return {
-                name: revertCamelCase(ingredient.name),
-                amount: ingredient.amount,
-              };
-            }),
-          })
-        );
-      }
+      cocktails = (await formatCocktails(cocktails, ingredientsAndPrice)) ?? [];
     }
     return cocktails;
   }

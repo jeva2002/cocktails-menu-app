@@ -38,25 +38,22 @@ const CreateOrder: React.FunctionComponent<Props> = ({ setOrder }) => {
       <h1>Crear orden</h1>
       <section className='scroll-view d-flex flex-wrap justify-content-evenly gap-1'>
         {cocktails.map((e, index) => (
-          <>
-            <Cocktail
-              key={index}
-              setOrder={(amount) => {
-                setOrder((value) => {
-                  return {
-                    table: value.table,
-                    order: {
-                      ...value.order,
-                      [e.name]: amount > 0 ? amount : undefined,
-                    },
-                  };
-                });
-              }}
-              cocktail={e}
-              shortage={shortage(e.name)}
-            />
-            {}
-          </>
+          <Cocktail
+            key={index}
+            setOrder={(amount) => {
+              setOrder((value) => {
+                return {
+                  table: value.table,
+                  order: {
+                    ...value.order,
+                    [e.name]: amount > 0 ? amount : undefined,
+                  },
+                };
+              });
+            }}
+            cocktail={e}
+            shortage={shortage(e.name)}
+          />
         ))}
       </section>
     </>
