@@ -3,7 +3,7 @@ import {
   getDocument,
   listenDocument,
 } from '../../../model/firebase/firestore';
-import { camelCase } from '../../../model/utils/formatData';
+import { camelCase } from '../../../model/utils/formatString';
 import { Cocktail } from '../../slices/cocktails';
 
 export const getCustomCocktails = async () =>

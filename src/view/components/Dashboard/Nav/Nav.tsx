@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { menu } from '../../../../assets/icons';
+import { selectUser } from '../../../../controller/slices/user';
 import LinksList, { TLinksList } from './LinksList';
 import './Nav.scss';
 
@@ -19,6 +21,7 @@ const adminLinks: TLinksList = [
 const Nav: React.FunctionComponent = () => {
   const [showLinks, setShowLinks] = useState(false);
   const [currentPage, setCurrentPage] = useState('Mesas');
+  const user = useSelector(selectUser);
 
   return (
     <nav className='nav d-flex flex-column position-relative'>
@@ -39,12 +42,14 @@ const Nav: React.FunctionComponent = () => {
           setCurrentPage={setCurrentPage}
           setShowLinks={setShowLinks}
         />
-        <LinksList
-          linksList={adminLinks}
-          title='Admin'
-          setCurrentPage={setCurrentPage}
-          setShowLinks={setShowLinks}
-        />
+        {user.email === 'juanito@gmail.com' ? (
+          <LinksList
+            linksList={adminLinks}
+            title='Admin'
+            setCurrentPage={setCurrentPage}
+            setShowLinks={setShowLinks}
+          />
+        ) : null}
       </div>
     </nav>
   );

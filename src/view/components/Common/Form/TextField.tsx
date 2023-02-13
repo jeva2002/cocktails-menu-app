@@ -1,5 +1,5 @@
 import { useField } from 'formik';
-import { capitalize } from '../../../../model/utils/formatData';
+import { capitalize } from '../../../../model/utils/formatString';
 import { key, mail, user } from '../../../../assets/icons/index';
 
 interface Props {

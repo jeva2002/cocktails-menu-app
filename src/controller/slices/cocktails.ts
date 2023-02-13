@@ -1,10 +1,11 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, Slice } from '@reduxjs/toolkit';
 import getData from '../../model/api/getData';
 import {
   cocktailsCollection,
   getAllDocuments,
 } from '../../model/firebase/firestore';
 import { formatCocktails } from '../../model/utils/formatData';
+import { getCustomCocktails } from '../handlers/dashboard/customCocktails';
 
 export interface Cocktail {
   id?: string;
@@ -34,13 +35,19 @@ const getCocktailsAPI = createAsyncThunk(
     });
     const ingredientsAndPrice: any = await getAllDocuments(cocktailsCollection);
     if (Array.isArray(ingredientsAndPrice) && Array.isArray(cocktails)) {
-      cocktails = (await formatCocktails(cocktails, ingredientsAndPrice)) ?? [];
+      const customCocktails = await getCustomCocktails();
+      cocktails =
+        (await formatCocktails(
+          cocktails,
+          ingredientsAndPrice,
+          customCocktails
+        )) ?? [];
     }
     return cocktails;
   }
 );
 
-const cocktailsReducer = createSlice({
+const cocktailsReducer: Slice = createSlice({
   name: 'cocktails',
   initialState: initialState,
   reducers: {},

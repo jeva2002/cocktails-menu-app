@@ -1,8 +1,5 @@
 import { useField } from 'formik';
-import {
-  capitalize,
-  revertCamelCase,
-} from '../../../../model/utils/formatData';
+import { revertCamelCase } from '../../../../model/utils/formatString';
 
 interface Props {
   name: string;

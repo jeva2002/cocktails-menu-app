@@ -1,43 +1,7 @@
 import { DocumentData } from 'firebase/firestore';
-import { getCustomCocktails } from '../../controller/handlers/dashboard/customCocktails';
 import { Cocktail } from '../../controller/slices/cocktails';
 import store from '../store/store';
-
-export const capitalize = (text: string) => {
-  const firstLetter = text[0].toUpperCase();
-  const rest = text.slice(1).toLowerCase();
-  return firstLetter + rest;
-};
-
-export const camelCase = (phrase: string) => {
-  const listOfWords: string[] = phrase.split(' ');
-  let result = '';
-  listOfWords.forEach((word, index) => {
-    word = word.toLowerCase();
-    if (index > 0) word = capitalize(word);
-    result += word;
-  });
-  return result;
-};
-
-export const revertCamelCase = (phrase: string) => {
-  const letters = phrase.split('');
-  const words: string[] = [];
-  let contador = 0;
-  letters.forEach((letter, index) => {
-    if (index === 0) words[0] = letter.toUpperCase();
-    else if (/[A-Z]/.test(letter)) {
-      words.push(letter);
-      contador += 1;
-    } else words[contador] += letter;
-  });
-  let finalPhrase = '';
-  words.forEach((word, index) => {
-    if (index === 0) finalPhrase = word;
-    else finalPhrase += ' ' + word;
-  });
-  return finalPhrase;
-};
+import { camelCase, revertCamelCase } from './formatString';
 
 export const getTotal = (totalList: number[] | undefined) => {
   if (totalList) {
@@ -101,17 +65,20 @@ export const formatOrder = (order: { table: number; order: {} }) => {
 
 export const formatCocktails = async (
   cocktails: Cocktail[],
-  ingredientsAndPrice: any
+  ingredientsAndPrice: any,
+  customCocktails: DocumentData | undefined
 ) => {
   cocktails.forEach((cocktail) => {
-    const correspondent = ingredientsAndPrice.find((e) => e.id === cocktail.id);
+    const correspondent: Cocktail = ingredientsAndPrice.find(
+      (e: { id: string; price: number; ingredients: [] }) =>
+        e.id === cocktail.id
+    );
     cocktail.price = correspondent.price;
     cocktail.ingredients = correspondent.ingredients;
   });
-  const exist = await getCustomCocktails();
-  if (exist) {
-    const customCocktails: Cocktail[] = Object.values(exist);
-    customCocktails.forEach((cocktail) =>
+  if (customCocktails) {
+    const formatedCustomCocktails: Cocktail[] = Object.values(customCocktails);
+    formatedCustomCocktails.forEach((cocktail) =>
       cocktails.push({
         ...cocktail,
         ingredients: cocktail.ingredients.map((ingredient) => {
@@ -122,6 +89,6 @@ export const formatCocktails = async (
         }),
       })
     );
-    return cocktails;
   }
+  return cocktails;
 };
