@@ -2,6 +2,7 @@ import {
   createDocument,
   getDocument,
   listenDocument,
+  updateDocument,
 } from '../../../model/firebase/firestore';
 import { camelCase } from '../../../model/utils/formatString';
 import { Cocktail } from '../../slices/cocktails';
@@ -23,6 +24,15 @@ export const createCustomCocktail = async (data: Cocktail) => {
         await createDocument({ ...list }, 'cocktails', 'customCocktails');
       }
     } else await createDocument({ '0': data }, 'cocktails', 'customCocktails');
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteCustomCocktail = async (data: {}) => {
+  try {
+    console.log(data)
+    await createDocument(data, 'cocktails', 'customCocktails');
   } catch (error) {
     console.log(error);
   }
