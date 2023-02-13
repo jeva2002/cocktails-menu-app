@@ -1,23 +1,34 @@
 import { useEffect, useState } from 'react';
 import CreateOrder from './createOrder/CreateOrder';
 import TablesList from './Tables/TablesList';
-import { Order, addOrder } from '../../../../controller/slices/orders';
-import { useDispatch } from 'react-redux';
+import { addOrder, getOrders } from '../../../../controller/slices/orders';
+import { useDispatch, useSelector } from 'react-redux';
 import { formatOrder } from '../../../../model/utils/formatData';
 
 const Services: React.FunctionComponent = () => {
   const [currentView, setCurrentView] = useState('tables');
   const [selected, setSelected] = useState(1);
-  const [order, setOrder] = useState<Order>({
+  const [order, setOrder] = useState<{ table: number; order: {} }>({
     table: selected,
     order: {},
   });
 
   const dispatch = useDispatch();
+  const orders = useSelector(getOrders);
 
   useEffect(() => {
     setOrder({ ...order, table: selected });
   }, [selected]);
+
+  useEffect(() => {
+    const tablesWithOrder = orders.map((e) => e.table);
+    for (let i = 1; i <= 6; i++) {
+      if (tablesWithOrder.find((e) => e === i) === undefined) {
+        setSelected(i);
+        break;
+      }
+    }
+  }, [orders]);
 
   return (
     <main className='container-fluid d-flex flex-column justify-content-evenly align-items-center py-3'>

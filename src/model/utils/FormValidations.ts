@@ -20,3 +20,10 @@ export const ADD_INGREDIENT_VALIDATION = Yup.object().shape({
   amount: Yup.number().required().integer().positive(),
   name: Yup.string().required(),
 });
+
+export const CREATE_COCKTAIL_VALIDATION = Yup.object().shape({
+  name: Yup.string().required(),
+  price: Yup.number().positive().integer().required(),
+  img: Yup.string().required(),
+  ingredients: Yup.array().required(),
+});

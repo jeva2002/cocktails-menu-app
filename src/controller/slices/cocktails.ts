@@ -4,13 +4,10 @@ import {
   cocktailsCollection,
   getAllDocuments,
 } from '../../model/firebase/firestore';
-import {
-  createDailyInventory,
-  listenInventory,
-} from '../handlers/dashboard/inventory';
+import { getCustomCocktails } from '../handlers/dashboard/customCocktails';
 
 export interface Cocktail {
-  id: string;
+  id?: string;
   name: string;
   img: string;
   ingredients: {
@@ -26,7 +23,7 @@ const getCocktailsAPI = createAsyncThunk(
   'cocktails/getCocktailsAPI',
   async () => {
     const response = await getData();
-    let cocktails = response?.drinks.map((e: any) => {
+    let cocktails: Cocktail[] = response?.drinks.map((e: any) => {
       return {
         id: e['idDrink'],
         name: e['strDrink'],
@@ -44,6 +41,11 @@ const getCocktailsAPI = createAsyncThunk(
         cocktail.price = correspondent.price;
         cocktail.ingredients = correspondent.ingredients;
       });
+      const exist = await getCustomCocktails();
+      if (exist) {
+        const customCocktails: Cocktail[] = Object.values(exist);
+        customCocktails.forEach((cocktail) => cocktails.push(cocktail));
+      }
     }
     return cocktails;
   }

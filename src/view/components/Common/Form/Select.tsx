@@ -6,11 +6,10 @@ import {
 
 interface Props {
   name: string;
-  label: string;
   options: string[];
 }
 
-const Select: React.FunctionComponent<Props> = ({ name, label, options }) => {
+const Select: React.FunctionComponent<Props> = ({ name, options }) => {
   const [field, meta] = useField(name);
 
   return (

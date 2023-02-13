@@ -5,5 +5,6 @@ import menu from './menu.svg';
 import arrowDown from './arrow-down.svg';
 import edit from './edit.svg';
 import trash from './trash.svg';
+import x from './x.svg';
 
-export { key, mail, user, menu, arrowDown, edit, trash };
+export { key, mail, user, menu, arrowDown, edit, trash, x };

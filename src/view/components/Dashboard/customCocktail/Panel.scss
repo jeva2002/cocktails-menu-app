@@ -1,0 +1,29 @@
+.options {
+  list-style: none;
+  font-weight: bolder;
+
+  li:hover {
+    cursor: pointer;
+    color: #622fcf;
+  }
+}
+
+.badgets {
+  overflow: auto;
+  height: 27vh;
+  border: 2px #ddd solid; 
+  margin: 5px;
+  border-radius: 10px;
+
+  .item {
+    background-color: #fff;
+    padding: 5px;
+    border-radius: 10px;
+    max-height: 70px;
+    
+    img {
+      width: 20px;
+      margin-left: 5px;
+    }
+  }
+}

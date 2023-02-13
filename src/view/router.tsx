@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import App from './App';
 import AccountsList from './components/Dashboard/Account/AccountsList';
 import Bill from './components/Dashboard/Account/Bill';
+import Panel from './components/Dashboard/customCocktail/Panel';
 import AddIngredient from './components/Dashboard/Inventory/AddIngredient/AddIngredient';
 import InventoryReport from './components/Dashboard/Inventory/Report/InventoryReport';
 import SalesReport from './components/Dashboard/SalesReport/SalesReport';
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
           {
             path: '/dashboard/add-ingredient',
             element: <AddIngredient />,
+          },
+          {
+            path: '/dashboard/custom-cocktails',
+            element: <Panel />,
           },
         ],
       },

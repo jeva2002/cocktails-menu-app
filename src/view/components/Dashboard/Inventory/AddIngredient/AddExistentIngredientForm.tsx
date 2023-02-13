@@ -16,7 +16,6 @@ const AddExistentIngredientForm: React.FunctionComponent<Props> = ({
       <TextField name='amount' label='Amount' type='number' />
       <Select
         name='name'
-        label='Ingrediente'
         options={ingredients.map((e) => e[0])}
       />
       <button className='btn btn-danger' type='submit'>
