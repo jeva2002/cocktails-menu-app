@@ -52,7 +52,7 @@ const Nav: React.FunctionComponent = () => {
             setShowLinks={setShowLinks}
           />
         ) : null}
-        <button className='btn ms-5' onClick={() => dispatch(clearUser())}>
+        <button className='btn ms-5' onClick={() => dispatch(clearUser(''))}>
           Cerrar sesión
         </button>
       </div>

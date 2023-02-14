@@ -6,6 +6,7 @@ import logo from '../../assets/imgs/logo.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUser, setUser } from '../../controller/slices/user';
 import { Navigate } from 'react-router-dom';
+import { formatPrice } from '../../model/utils/formatString';
 
 export interface LoginValues {
   email: string;

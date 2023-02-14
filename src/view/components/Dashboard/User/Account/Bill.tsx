@@ -16,6 +16,7 @@ import {
 import { getTotal } from '../../../../../model/utils/formatData';
 import BillItem from './BillItem';
 import './Bill.scss';
+import { formatPrice } from '../../../../../model/utils/formatString';
 
 const Bill: React.FunctionComponent = () => {
   const { tableId } = useParams();
@@ -49,7 +50,7 @@ const Bill: React.FunctionComponent = () => {
       </ul>
       <div className='total'>
         <h3>Total:</h3>
-        <h3>${' ' + total}</h3>
+        <h3>${' ' + formatPrice(total)}</h3>
       </div>
       <div className='d-flex gap-3'>
         <button

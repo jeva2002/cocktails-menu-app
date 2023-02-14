@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from './App';
-import AccountsList from './components/Dashboard/Admin/Account/AccountsList';
-import Bill from './components/Dashboard/Admin/Account/Bill';
+import AccountsList from './components/Dashboard/User/Account/AccountsList';
+import Bill from './components/Dashboard/User/Account/Bill';
 import Panel from './components/Dashboard/Admin/CustomCocktails/Panel';
 import AddIngredient from './components/Dashboard/Admin/Inventory/AddIngredient/AddIngredient';
 import InventoryReport from './components/Dashboard/Admin/Inventory/Report/InventoryReport';

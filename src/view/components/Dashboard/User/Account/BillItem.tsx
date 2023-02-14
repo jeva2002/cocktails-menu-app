@@ -1,3 +1,5 @@
+import { formatPrice } from '../../../../../model/utils/formatString';
+
 interface Props {
   cocktail:
     | {
@@ -20,14 +22,14 @@ const BillItem: React.FunctionComponent<Props> = ({ cocktail }) => {
       <img src={cocktail?.img} alt={cocktail?.name} />
       <div>
         <small>{cocktail?.name}</small>
-        <b>c/u $ {cocktail?.price}</b>
+        <b>c/u $ {formatPrice(cocktail?.price)}</b>
       </div>
       <div>
         <small>Cantidad: {cocktail?.amount}</small>
         <b>
           Total: ${' '}
           {cocktail?.amount && cocktail.price
-            ? parseInt(`${cocktail?.amount}`) * cocktail?.price
+            ? formatPrice(parseInt(`${cocktail?.amount}`) * cocktail?.price)
             : null}
         </b>
       </div>

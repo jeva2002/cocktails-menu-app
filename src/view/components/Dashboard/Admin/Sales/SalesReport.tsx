@@ -5,6 +5,7 @@ import {
   Tables,
 } from '../../../../../controller/handlers/dashboard/accounts';
 import { today } from '../../../../../model/utils/dates';
+import { formatPrice } from '../../../../../model/utils/formatString';
 import './SalesReport.scss';
 
 const SalesReport: React.FunctionComponent = () => {
@@ -46,7 +47,7 @@ const SalesReport: React.FunctionComponent = () => {
               key={sale?.table}
             >
               <span>Mesa {sale?.table}</span>
-              <span>${' ' + sale?.total}</span>
+              <span>${' ' + formatPrice(sale?.total)}</span>
             </li>
           ))}
         </ul>
@@ -55,11 +56,13 @@ const SalesReport: React.FunctionComponent = () => {
         <h2>Ventas totales:</h2>
         <span className='h3'>
           ${'  '}
-          {formatSales()
-            ?.map((sale) => sale?.total)
-            ?.reduce(
-              (accumulator, currentValue) => accumulator + currentValue
-            ) ?? 0}
+          {formatPrice(
+            formatSales()
+              ?.map((sale) => sale?.total)
+              ?.reduce(
+                (accumulator, currentValue) => accumulator + currentValue
+              )
+          ) ?? 0}
         </span>
       </div>
     </main>
