@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { menu } from '../../../../assets/icons';
-import { selectUser } from '../../../../controller/slices/user';
+import { clearUser, selectUser } from '../../../../controller/slices/user';
 import LinksList, { TLinksList } from './LinksList';
 import './Nav.scss';
 
@@ -21,7 +21,9 @@ const adminLinks: TLinksList = [
 const Nav: React.FunctionComponent = () => {
   const [showLinks, setShowLinks] = useState(false);
   const [currentPage, setCurrentPage] = useState('Mesas');
+
   const user = useSelector(selectUser);
+  const dispatch = useDispatch();
 
   return (
     <nav className='nav d-flex flex-column position-relative'>
@@ -50,6 +52,9 @@ const Nav: React.FunctionComponent = () => {
             setShowLinks={setShowLinks}
           />
         ) : null}
+        <button className='btn ms-5' onClick={() => dispatch(clearUser())}>
+          Cerrar sesión
+        </button>
       </div>
     </nav>
   );
