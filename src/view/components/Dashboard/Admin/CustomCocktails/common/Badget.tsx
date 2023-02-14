@@ -1,19 +1,13 @@
 import { x } from '../../../../../../assets/icons';
-import { revertCamelCase } from '../../../../../../model/utils/formatString'; 
+import { modifyBadget } from '../../../../../../controller/handlers/dashboard/customCokctail/badget';
+import { revertCamelCase } from '../../../../../../model/utils/formatString';
+import { SetIngredients } from '../types';
 
 interface Props {
   name: string;
   amount: number;
   id: number;
-  setIngredients: React.Dispatch<
-    React.SetStateAction<
-      | {
-          name: string;
-          amount: number;
-        }[]
-      | undefined
-    >
-  >;
+  setIngredients: SetIngredients;
 }
 
 const Badget: React.FunctionComponent<Props> = ({
@@ -22,32 +16,6 @@ const Badget: React.FunctionComponent<Props> = ({
   id,
   setIngredients,
 }) => {
-  const increase = () => {
-    setIngredients((ingredients) => {
-      if (ingredients) {
-        const list = [...ingredients];
-        list[id].amount = amount + 1;
-        return list;
-      }
-    });
-  };
-  const decrease = () => {
-    setIngredients((ingredients) => {
-      if (ingredients) {
-        const list = [...ingredients];
-        list[id].amount = amount - 1;
-        return list;
-      }
-    });
-  };
-  const remove = () => {
-    setIngredients((ingredients) => {
-      if (ingredients) {
-        return ingredients.filter((ingredient, index) => index !== id);
-      }
-    });
-  };
-
   return (
     <div className='item d-flex justify-content-evenly'>
       <div className='d-flex flex-column align-items-center'>
@@ -56,13 +24,17 @@ const Badget: React.FunctionComponent<Props> = ({
           <span
             className='h5 click text-warning'
             onClick={() => {
-              if (amount > 0) decrease();
+              if (amount > 0)
+                modifyBadget('reduce', setIngredients, id, amount);
             }}
           >
             -
           </span>
           <span className='h6'>{amount}</span>
-          <span className='h5 click text-primary' onClick={increase}>
+          <span
+            className='h5 click text-primary'
+            onClick={() => modifyBadget('add', setIngredients, id, amount)}
+          >
             +
           </span>
         </div>
@@ -71,7 +43,7 @@ const Badget: React.FunctionComponent<Props> = ({
         className='click text-secondary'
         src={x}
         alt='eliminar'
-        onClick={remove}
+        onClick={() => modifyBadget('remove', setIngredients, id, amount)}
       />
     </div>
   );

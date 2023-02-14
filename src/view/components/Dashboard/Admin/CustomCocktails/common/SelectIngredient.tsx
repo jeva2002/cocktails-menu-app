@@ -1,6 +1,8 @@
 import { useField } from 'formik';
 import { useEffect, useState } from 'react';
+import { setBadget } from '../../../../../../controller/handlers/dashboard/customCokctail/badget';
 import { revertCamelCase } from '../../../../../../model/utils/formatString';
+import { Ingredients } from '../types';
 import Badget from './Badget';
 
 interface Props {
@@ -13,8 +15,7 @@ const SelectIngredient: React.FunctionComponent<Props> = ({
   options,
 }) => {
   const [field, , helpers] = useField(name);
-  const [ingredients, setIngredients] =
-    useState<{ name: string; amount: number }[]>();
+  const [ingredients, setIngredients] = useState<Ingredients>();
 
   useEffect(() => {
     helpers.setValue(ingredients);
@@ -24,22 +25,8 @@ const SelectIngredient: React.FunctionComponent<Props> = ({
     <div className='col-lg-7 col-12 d-flex flex-column'>
       <div className='select d-flex flex-column align-items-center'>
         <select
-          className=''
           name={field.name}
-          onChange={(e) => {
-            if (ingredients === undefined)
-              setIngredients([{ name: e.target.value, amount: 0 }]);
-            else if (
-              ingredients.find(
-                (ingredient) => ingredient.name === e.target.value
-              ) === undefined &&
-              e.target.value !== ''
-            )
-              setIngredients([
-                ...ingredients,
-                { name: e.target.value, amount: 1 },
-              ]);
-          }}
+          onChange={(e) => setBadget(e, ingredients, setIngredients)}
         >
           <option value={''}>Seleccionar Ingrediente</option>
           {options

@@ -9,6 +9,7 @@ import {
   formatIngredientsList,
   formatInventory,
 } from '../../../model/utils/formatData';
+import { IngredientValues } from '../../../view/components/Dashboard/Admin/Inventory/AddIngredient/AddIngredient';
 import { handleError, handleSuccess } from '../responses';
 
 export const dailyInventory: any = async () =>
@@ -24,11 +25,30 @@ const updateDailyInventory = async () => {
       const inventory: any = formatInventory(ingredients);
       if (inventory.GG) {
         await createDocument(inventory, 'inventory', today);
-      } 
+      }
     } else throw new Error('Ha ocurrido un error al obtener los ingredientes');
   } catch (error) {
     handleError(error);
   }
+};
+
+const selectOperationToModifyIngredientInventory = (
+  ingredient: (string | number)[],
+  operation: '+' | '-' | 'new',
+  inventory: any
+) => {
+  operation === 'new'
+    ? (inventory = {
+        ...inventory,
+        [`${ingredient[0]}`]: Number(ingredient[1]),
+      })
+    : (inventory = {
+        ...inventory,
+        [`${ingredient[0]}`]:
+          operation === '+'
+            ? inventory[`${ingredient[0]}`] + Number(ingredient[1])
+            : inventory[`${ingredient[0]}`] - Number(ingredient[1]),
+      });
 };
 
 export const modifyIngredientsInventory = async (
@@ -40,18 +60,11 @@ export const modifyIngredientsInventory = async (
   try {
     ingredientsList.forEach((ingredient) => {
       if (ingredient) {
-        operation === 'new'
-          ? (inventory = {
-              ...inventory,
-              [`${ingredient[0]}`]: Number(ingredient[1]),
-            })
-          : (inventory = {
-              ...inventory,
-              [`${ingredient[0]}`]:
-                operation === '+'
-                  ? inventory[`${ingredient[0]}`] + Number(ingredient[1])
-                  : inventory[`${ingredient[0]}`] - Number(ingredient[1]),
-            });
+        selectOperationToModifyIngredientInventory(
+          ingredient,
+          operation,
+          inventory
+        );
       } else
         throw new Error('Ha ocurrido un error al obtener los ingredientes');
     });
@@ -59,6 +72,18 @@ export const modifyIngredientsInventory = async (
     handleSuccess('La operación ha sido exitosa');
   } catch (error) {
     handleError(error);
+  }
+};
+
+export const handleAddIngredients = (
+  values: IngredientValues,
+  ingredients: [string, number][]
+) => {
+  const currentIngredient = ingredients.find(
+    (ingredient) => ingredient[0] === values.name
+  );
+  if (currentIngredient) {
+    modifyIngredientsInventory([[values]], '+');
   }
 };
 

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { trash } from '../../../../../../assets/icons';
+import { handleSuccess } from '../../../../../../controller/handlers/responses';
 import {
   getOneOrder,
   Order,
@@ -31,22 +32,25 @@ const EditOrder: React.FunctionComponent = () => {
     });
   };
 
+  const handleOrder = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch(
+      updateOrder({
+        table: tableId ? parseInt(tableId) : -1,
+        order: newValue
+          ? newValue.filter((e) => e[0] !== '' && e[1] !== 0)
+          : [],
+      })
+    );
+    handleSuccess();
+  };
+
   return (
     <div className='p-4 d-flex flex-column align-items-center'>
       <h1>Editar pedido</h1>
       <form
         className='d-flex flex-column align-items-center'
-        onSubmit={(e) => {
-          e.preventDefault();
-          dispatch(
-            updateOrder({
-              table: tableId ? parseInt(tableId) : -1,
-              order: newValue
-                ? newValue.filter((e) => e[0] !== '' && e[1] !== 0)
-                : [],
-            })
-          );
-        }}
+        onSubmit={handleOrder}
       >
         <div className='scroll-view d-flex flex-column align-items-center gap-2'>
           {Array.isArray(newValue)
@@ -76,7 +80,7 @@ const EditOrder: React.FunctionComponent = () => {
               })
             }
           >
-            Agregar
+            Agregar campo
           </button>
           <button className='btn' type='submit'>
             Editar

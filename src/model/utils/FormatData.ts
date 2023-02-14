@@ -1,15 +1,8 @@
 import { DocumentData } from 'firebase/firestore';
+import { Account, Tables } from '../../controller/handlers/dashboard/accounts';
 import { Cocktail } from '../../controller/slices/cocktails';
 import store from '../store/store';
 import { camelCase, revertCamelCase } from './formatString';
-
-export const getTotal = (totalList: number[] | undefined) => {
-  if (totalList) {
-    return totalList.reduce(
-      (accumulator, currentValue) => accumulator + currentValue
-    );
-  }
-};
 
 export const formatIngredientsList = (
   ingredients: ({ name: string; amount: number }[] | undefined)[]
@@ -120,6 +113,22 @@ export const formatCustomCocktails = (
     }
     if (flag) {
       return updatedValues;
-    }
+    } else throw new Error('Se requiere de al menos un cambio');
+  }
+};
+
+export const formatSales = (sales: Account | undefined) => {
+  if (sales) {
+    return Object.entries(sales)
+      .map((sale) => {
+        for (let table in Tables) {
+          if (sale[0] === table)
+            return { table: parseInt(Tables[table]) + 1, total: sale[1] };
+        }
+      })
+      .sort((a, b) => {
+        if (a?.table && b?.table) return a.table - b.table;
+        else return 0;
+      });
   }
 };

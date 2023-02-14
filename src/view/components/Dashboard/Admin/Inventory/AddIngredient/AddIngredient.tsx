@@ -2,13 +2,14 @@ import { Formik } from 'formik';
 import { useEffect, useState } from 'react';
 import {
   getIngredients,
+  handleAddIngredients,
   modifyIngredientsInventory,
 } from '../../../../../../controller/handlers/dashboard/inventory';
 import { ADD_INGREDIENT_VALIDATION } from '../../../../../../model/utils/formValidations';
 import AddExistentIngredientForm from './AddExistentIngredientForm';
 import AddNewIngredientForm from './AddNewIngredientForm';
 
-interface IngredientValues {
+export interface IngredientValues {
   name: string;
   amount: number;
 }
@@ -35,14 +36,7 @@ const AddIngredient: React.FunctionComponent = (props) => {
         <Formik
           initialValues={INITIAL_VALUES}
           validationSchema={ADD_INGREDIENT_VALIDATION}
-          onSubmit={(values) => {
-            const currentIngredient = ingredients.find(
-              (ingredient) => ingredient[0] === values.name
-            );
-            if (currentIngredient) {
-              modifyIngredientsInventory([[values]], '+');
-            }
-          }}
+          onSubmit={(values) => handleAddIngredients(values, ingredients)}
         >
           <AddExistentIngredientForm ingredients={ingredients} />
         </Formik>

@@ -3,20 +3,20 @@ import { useNavigate, useParams } from 'react-router-dom';
 import {
   handlePay,
   Tables,
-} from '../../../../../controller/handlers/dashboard/accounts';
+} from '../../../../../../controller/handlers/dashboard/accounts';
 import {
   Cocktail,
   getOneCocktail,
-} from '../../../../../controller/slices/cocktails';
+} from '../../../../../../controller/slices/cocktails';
 import {
   getOneOrder,
   Order,
   removeOrder,
-} from '../../../../../controller/slices/orders';
-import { getTotal } from '../../../../../model/utils/formatData';
+} from '../../../../../../controller/slices/orders';
+import { formatPrice } from '../../../../../../model/utils/formatString';
+import { getTotal } from '../../../../../../controller/handlers/dashboard/bill';
 import BillItem from './BillItem';
 import './Bill.scss';
-import { formatPrice } from '../../../../../model/utils/formatString';
 
 const Bill: React.FunctionComponent = () => {
   const { tableId } = useParams();

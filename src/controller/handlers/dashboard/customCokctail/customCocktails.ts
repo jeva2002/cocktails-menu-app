@@ -3,11 +3,11 @@ import {
   getDocument,
   listenDocument,
   updateDocument,
-} from '../../../model/firebase/firestore';
-import { formatCustomCocktails } from '../../../model/utils/formatData';
-import { camelCase } from '../../../model/utils/formatString';
-import { Cocktail } from '../../slices/cocktails';
-import { handleConfirm, handleError, handleSuccess } from '../responses';
+} from '../../../../model/firebase/firestore';
+import { formatCustomCocktails } from '../../../../model/utils/formatData';
+import { camelCase } from '../../../../model/utils/formatString';
+import { Cocktail } from '../../../slices/cocktails';
+import { handleConfirm, handleError, handleSuccess } from '../../responses';
 
 export const getCustomCocktails = async () =>
   await getDocument('cocktails/customCocktails');

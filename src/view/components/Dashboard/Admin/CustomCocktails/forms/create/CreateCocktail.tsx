@@ -1,11 +1,11 @@
 import { Form, Formik } from 'formik';
 import { useEffect, useState } from 'react';
-import { createCustomCocktail } from '../../../../../../controller/handlers/dashboard/customCocktails';
-import { getIngredients } from '../../../../../../controller/handlers/dashboard/inventory';
-import { Cocktail } from '../../../../../../controller/slices/cocktails';
-import { CREATE_COCKTAIL_VALIDATION } from '../../../../../../model/utils/formValidations';
-import TextField from '../../../../Common/Form/TextField';
-import SelectIngredient from '../common/SelectIngredient';
+import { createCustomCocktail } from '../../../../../../../controller/handlers/dashboard/customCokctail/customCocktails';
+import { getIngredients } from '../../../../../../../controller/handlers/dashboard/inventory';
+import { Cocktail } from '../../../../../../../controller/slices/cocktails';
+import { CREATE_COCKTAIL_VALIDATION } from '../../../../../../../model/utils/formValidations';
+import TextField from '../../../../../Common/Form/TextField';
+import SelectIngredient from '../../common/SelectIngredient';
 
 const INITIAL_VALUES: Cocktail = {
   name: '',

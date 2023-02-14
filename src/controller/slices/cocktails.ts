@@ -5,7 +5,7 @@ import {
   getAllDocuments,
 } from '../../model/firebase/firestore';
 import { formatCocktails } from '../../model/utils/formatData';
-import { getCustomCocktails } from '../handlers/dashboard/customCocktails';
+import { getCustomCocktails } from '../handlers/dashboard/customCokctail/customCocktails';
 
 export interface Cocktail {
   id?: string;

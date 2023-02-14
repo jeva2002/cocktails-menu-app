@@ -1,6 +1,6 @@
 import { Form } from 'formik';
-import TextField from '../../../../Common/Form/TextField';
-import SelectIngredient from '../common/SelectIngredient';
+import TextField from '../../../../../Common/Form/TextField';
+import SelectIngredient from '../../common/SelectIngredient';
 
 interface Props {
   ingredients: [string, number][];

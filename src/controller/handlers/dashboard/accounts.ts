@@ -61,7 +61,6 @@ export const handlePay = async (
     const account = await dailyAccount();
     account[table] = account[table] + total;
     const updatedInventory = await updateDocument(account, 'accounts', today);
-    handleSuccess('La compra se ha realizado correctamente');
     return updatedInventory;
   } catch (error) {
     handleError(error);

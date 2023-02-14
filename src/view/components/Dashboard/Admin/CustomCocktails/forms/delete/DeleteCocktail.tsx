@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import {
   deleteCustomCocktail,
   getCustomCocktails,
-} from '../../../../../../controller/handlers/dashboard/customCocktails';
-import { Cocktail } from '../../../../../../controller/slices/cocktails';
-import { capitalize } from '../../../../../../model/utils/formatString';
+} from '../../../../../../../controller/handlers/dashboard/customCokctail/customCocktails';
+import { Cocktail } from '../../../../../../../controller/slices/cocktails';
+import { capitalize } from '../../../../../../../model/utils/formatString';
 
 const DeleteCocktail: React.FunctionComponent = ({}) => {
   const [list, setList] = useState<[string, any][]>([]);

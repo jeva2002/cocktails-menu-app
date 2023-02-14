@@ -13,13 +13,15 @@ const SelectCocktail: React.FunctionComponent<ISelectCocktailProps> = ({
   list,
 }) => {
   return (
-    <select value={cocktail} onChange={(e) => setCocktail(e.target.value)}>
-      {list.map((item: [string, Cocktail]) => (
-        <option key={item[1].name} value={item[1].name}>
-          {capitalize(item[1].name)}
-        </option>
-      ))}
-    </select>
+    <div className='select'>
+      <select value={cocktail} onChange={(e) => setCocktail(e.target.value)}>
+        {list.map((item: [string, Cocktail]) => (
+          <option key={item[1].name} value={item[1].name}>
+            {capitalize(item[1].name)}
+          </option>
+        ))}
+      </select>
+    </div>
   );
 };
 

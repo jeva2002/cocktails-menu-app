@@ -1,18 +1,17 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { handleConfirm } from '../../../../../../controller/handlers/responses';
 import {
   getOrders,
   removeOrder,
 } from '../../../../../../controller/slices/orders';
 import OrderPending from './OrderList';
 
-interface IStatusProps {}
-
-const Orders: React.FunctionComponent<IStatusProps> = (props) => {
+const Orders: React.FunctionComponent = () => {
   const orders = useSelector(getOrders);
   const dispatch = useDispatch();
 
   const deleteOrder = (tableId: number) => {
-    dispatch(removeOrder(tableId));
+    handleConfirm(() => dispatch(removeOrder(tableId)))
   };
 
   return (

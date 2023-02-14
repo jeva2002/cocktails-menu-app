@@ -1,4 +1,4 @@
-import { formatPrice } from '../../../../../model/utils/formatString';
+import { formatPrice } from '../../../../../../model/utils/formatString';
 
 interface Props {
   cocktail:

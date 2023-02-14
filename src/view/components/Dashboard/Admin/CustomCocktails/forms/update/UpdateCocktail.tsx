@@ -1,11 +1,12 @@
-import { Form, Formik } from 'formik';
+import { Formik } from 'formik';
 import { useEffect, useState } from 'react';
-import { getCustomCocktails, updateCustomCocktail } from '../../../../../../controller/handlers/dashboard/customCocktails';
-import { getIngredients } from '../../../../../../controller/handlers/dashboard/inventory';
-import { Cocktail } from '../../../../../../controller/slices/cocktails';
-import TextField from '../../../../Common/Form/TextField';
-import SelectCocktail from '../common/SelectCocktail';
-import SelectIngredient from '../common/SelectIngredient';
+import {
+  getCustomCocktails,
+  updateCustomCocktail,
+} from '../../../../../../../controller/handlers/dashboard/customCokctail/customCocktails';
+import { getIngredients } from '../../../../../../../controller/handlers/dashboard/inventory';
+import { Cocktail } from '../../../../../../../controller/slices/cocktails';
+import SelectCocktail from '../../common/SelectCocktail';
 import UpdateCocktailForm from './UpdateCocktailForm';
 
 let INITIAL_VALUES: Cocktail = {
@@ -47,34 +48,19 @@ const UpdateCocktail: React.FunctionComponent = () => {
     <>
       <div className='d-flex w-50 align-items-center flex-md-row flex-column mb-md-4 mb-5 justify-content-between mb-3'>
         <b className='h4'>Bebida:</b>
-        <div className='select'>
-          <SelectCocktail
-            cocktail={cocktail}
-            setCocktail={setCocktail}
-            list={list}
-          />
-        </div>
+        <SelectCocktail
+          cocktail={cocktail}
+          setCocktail={setCocktail}
+          list={list}
+        />
       </div>
       <Formik
         initialValues={INITIAL_VALUES}
-        // validate={(values) => {
-        //   const err = {
-        //     name: '',
-        //   };
-        //   if (values.img === '' && values.name === '' && values.price === 0) {
-        //     err.name = 'Se necesita de al menos un valor';
-        //   }
-        //   if (err.name !== '') return err;
-        // }}
         onSubmit={(values) => {
-          // console.log(values);
-          // console.log(currentCocktail);
-          console.log(list);
-          updateCustomCocktail(values, currentCocktail, list)
+          updateCustomCocktail(values, currentCocktail, list);
         }}
       >
         <UpdateCocktailForm ingredients={ingredients} />
-        
       </Formik>
     </>
   );
