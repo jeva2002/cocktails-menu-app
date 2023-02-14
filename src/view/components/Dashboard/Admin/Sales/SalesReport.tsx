@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import {
   Account,
   dailyAccount,
-  Tables,
 } from '../../../../../controller/handlers/dashboard/accounts';
 import { today } from '../../../../../model/utils/dates';
 import { formatSales } from '../../../../../model/utils/formatData';

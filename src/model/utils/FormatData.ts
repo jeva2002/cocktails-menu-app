@@ -18,8 +18,8 @@ export const formatIngredientsList = (
       if (ingredient)
         return [
           typeof ingredient[0] === 'string'
-            ? camelCase(ingredient[0])
-            : camelCase(ingredient[1].toString()),
+            ? ingredient[0]
+            : ingredient[1].toString(),
           typeof ingredient[0] === 'string' ? ingredient[1] : ingredient[0],
         ];
     });

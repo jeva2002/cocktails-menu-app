@@ -9,6 +9,7 @@ import {
   formatIngredientsList,
   formatInventory,
 } from '../../../model/utils/formatData';
+import { camelCase } from '../../../model/utils/formatString';
 import { IngredientValues } from '../../../view/components/Dashboard/Admin/Inventory/AddIngredient/AddIngredient';
 import { handleError, handleSuccess } from '../responses';
 
@@ -37,17 +38,19 @@ const selectOperationToModifyIngredientInventory = (
   operation: '+' | '-' | 'new',
   inventory: any
 ) => {
-  operation === 'new'
+  return operation === 'new'
     ? (inventory = {
         ...inventory,
         [`${ingredient[0]}`]: Number(ingredient[1]),
       })
     : (inventory = {
         ...inventory,
-        [`${ingredient[0]}`]:
+        [`${
+          operation === '+' ? ingredient[0] : camelCase(`${ingredient[0]}`)
+        }`]:
           operation === '+'
             ? inventory[`${ingredient[0]}`] + Number(ingredient[1])
-            : inventory[`${ingredient[0]}`] - Number(ingredient[1]),
+            : inventory[camelCase(`${ingredient[0]}`)] - Number(ingredient[1]),
       });
 };
 
@@ -60,7 +63,7 @@ export const modifyIngredientsInventory = async (
   try {
     ingredientsList.forEach((ingredient) => {
       if (ingredient) {
-        selectOperationToModifyIngredientInventory(
+        inventory = selectOperationToModifyIngredientInventory(
           ingredient,
           operation,
           inventory
