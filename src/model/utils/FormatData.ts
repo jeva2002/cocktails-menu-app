@@ -33,7 +33,7 @@ export const formatIngredientsList = (
 };
 
 export const formatInventory = (ingredients: DocumentData) => {
-  const cocktails: any = store.getState().cocktails.map((e) => {
+  const cocktails: any = store.getState().cocktails.map((e: any) => {
     return { [e.name]: [...e.ingredients] };
   });
   let inventory = {};

@@ -28,8 +28,9 @@ const DeleteCocktail: React.FunctionComponent = ({}) => {
         e.preventDefault();
         if (cocktail !== '') {
           const filteredList = list.filter((item) => item[1].name !== cocktail);
-          await deleteCustomCocktail(Object.fromEntries(filteredList));
-          setList(filteredList);
+          await deleteCustomCocktail(Object.fromEntries(filteredList), () =>
+            setList(filteredList)
+          );
         }
       }}
     >

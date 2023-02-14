@@ -30,7 +30,9 @@ const CreateCocktail: React.FunctionComponent = () => {
       <Formik
         initialValues={INITIAL_VALUES}
         validationSchema={CREATE_COCKTAIL_VALIDATION}
-        onSubmit={createCustomCocktail}
+        onSubmit={(values, action) => {
+          createCustomCocktail(values, () => action.resetForm());
+        }}
       >
         <Form className='d-flex flex-column align-items-center w-100 gap-2'>
           <div className='d-flex flex-column-reverse flex-lg-row gap-5'>

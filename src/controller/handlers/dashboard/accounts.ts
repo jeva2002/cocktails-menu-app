@@ -4,6 +4,7 @@ import {
   updateDocument,
 } from '../../../model/firebase/firestore';
 import { today } from '../../../model/utils/dates';
+import { handleError, handleSuccess } from '../responses';
 import { modifyIngredientsInventory } from './inventory';
 
 export interface Account {
@@ -59,8 +60,10 @@ export const handlePay = async (
     await modifyIngredientsInventory(ingredients, '-');
     const account = await dailyAccount();
     account[table] = account[table] + total;
-    return await updateDocument(account, 'accounts', today);
+    const updatedInventory = await updateDocument(account, 'accounts', today);
+    handleSuccess('La compra se ha realizado correctamente');
+    return updatedInventory;
   } catch (error) {
-    console.error(error);
+    handleError(error);
   }
 };

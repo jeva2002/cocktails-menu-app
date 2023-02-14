@@ -32,21 +32,27 @@ const TextField: React.FunctionComponent<Props> = ({
 
   return (
     <div className={className ? className : 'text-input'}>
-      {image ? (
-        <img
-          className='icon'
-          src={icons(image)}
-          alt='input icon'
-          style={{
-            width: 30,
-            height: 30,
-            position: 'absolute',
-            marginTop: 8,
-            marginLeft: 5,
-          }}
+      <div>
+        {image ? (
+          <img
+            className='icon'
+            src={icons(image)}
+            alt='input icon'
+            style={{
+              width: 30,
+              height: 30,
+              position: 'absolute',
+              marginTop: 8,
+              marginLeft: 5,
+            }}
+          />
+        ) : null}
+        <input
+          {...field}
+          type={type ?? 'text'}
+          placeholder={capitalize(label)}
         />
-      ) : null}
-      <input {...field} type={type ?? 'text'} placeholder={capitalize(label)} />
+      </div>
       {meta.touched && meta.error ? (
         <div className='error'>{meta.error}</div>
       ) : null}

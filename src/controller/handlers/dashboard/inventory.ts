@@ -9,6 +9,7 @@ import {
   formatIngredientsList,
   formatInventory,
 } from '../../../model/utils/formatData';
+import { handleError, handleSuccess } from '../responses';
 
 export const dailyInventory: any = async () =>
   await getDocument('inventory/' + today);
@@ -16,30 +17,17 @@ export const dailyInventory: any = async () =>
 export const getIngredients: any = async () =>
   await getDocument('inventory/ingredients');
 
-//@deprecated
-// export const createDailyInventory = async () => {
-//   try {
-//     const ingredients = await getIngredients();
-//     const exist = await dailyInventory();
-//     if (ingredients && exist?.GG === undefined) {
-//       const inventory = formatInventory(ingredients);
-//       console.log(inventory);
-//       await createDocument(inventory, 'inventory', today);
-//     }
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
-
 const updateDailyInventory = async () => {
   try {
     const ingredients = await getIngredients();
     if (ingredients) {
       const inventory: any = formatInventory(ingredients);
-      if (inventory.GG) await createDocument(inventory, 'inventory', today);
-    }
+      if (inventory.GG) {
+        await createDocument(inventory, 'inventory', today);
+      } 
+    } else throw new Error('Ha ocurrido un error al obtener los ingredientes');
   } catch (error) {
-    console.error(error);
+    handleError(error);
   }
 };
 
@@ -49,27 +37,35 @@ export const modifyIngredientsInventory = async (
 ) => {
   const ingredientsList = formatIngredientsList(ingredients);
   let inventory = await getIngredients();
-  ingredientsList.forEach((ingredient) => {
-    if (ingredient) {
-      operation === 'new'
-        ? (inventory = {
-            ...inventory,
-            [`${ingredient[0]}`]: Number(ingredient[1]),
-          })
-        : (inventory = {
-            ...inventory,
-            [`${ingredient[0]}`]:
-              operation === '+'
-                ? inventory[`${ingredient[0]}`] + Number(ingredient[1])
-                : inventory[`${ingredient[0]}`] - Number(ingredient[1]),
-          });
-    }
-  });
-  await updateDocument(inventory, 'inventory', 'ingredients');
+  try {
+    ingredientsList.forEach((ingredient) => {
+      if (ingredient) {
+        operation === 'new'
+          ? (inventory = {
+              ...inventory,
+              [`${ingredient[0]}`]: Number(ingredient[1]),
+            })
+          : (inventory = {
+              ...inventory,
+              [`${ingredient[0]}`]:
+                operation === '+'
+                  ? inventory[`${ingredient[0]}`] + Number(ingredient[1])
+                  : inventory[`${ingredient[0]}`] - Number(ingredient[1]),
+            });
+      } else
+        throw new Error('Ha ocurrido un error al obtener los ingredientes');
+    });
+    await updateDocument(inventory, 'inventory', 'ingredients');
+    handleSuccess('La operación ha sido exitosa');
+  } catch (error) {
+    handleError(error);
+  }
 };
 
 export const listenInventory = async () => {
-  return await listenDocument('inventory', 'ingredients', () =>
-    updateDailyInventory()
+  return await listenDocument(
+    'inventory',
+    'ingredients',
+    async () => await updateDailyInventory()
   );
 };

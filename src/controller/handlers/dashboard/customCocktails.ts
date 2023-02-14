@@ -7,11 +7,15 @@ import {
 import { formatCustomCocktails } from '../../../model/utils/formatData';
 import { camelCase } from '../../../model/utils/formatString';
 import { Cocktail } from '../../slices/cocktails';
+import { handleConfirm, handleError, handleSuccess } from '../responses';
 
 export const getCustomCocktails = async () =>
   await getDocument('cocktails/customCocktails');
 
-export const createCustomCocktail = async (data: Cocktail) => {
+export const createCustomCocktail = async (
+  data: Cocktail,
+  reset: () => void
+) => {
   try {
     const customCocktails: any = await getCustomCocktails();
     if (customCocktails) {
@@ -25,16 +29,24 @@ export const createCustomCocktail = async (data: Cocktail) => {
         await createDocument({ ...list }, 'cocktails', 'customCocktails');
       }
     } else await createDocument({ '0': data }, 'cocktails', 'customCocktails');
+    handleSuccess('Se ha creado exitosamente');
+    reset();
   } catch (error) {
-    console.log(error);
+    handleError(error);
   }
 };
 
-export const deleteCustomCocktail = async (data: {}) => {
+export const deleteCustomCocktail = async (
+  data: {},
+  modifyCurrentList: () => void
+) => {
   try {
-    await createDocument(data, 'cocktails', 'customCocktails');
+    handleConfirm(async () => {
+      await createDocument(data, 'cocktails', 'customCocktails');
+      modifyCurrentList();
+    });
   } catch (error) {
-    console.log(error);
+    handleError(error);
   }
 };
 
@@ -46,12 +58,25 @@ export const updateCustomCocktail = async (
   const formatData = formatCustomCocktails(values, currentCocktail);
   if (formatData && currentCocktail) {
     list[Number(currentCocktail[0])][1] = formatData;
-    await updateDocument(Object.fromEntries(list), 'cocktails', 'customCocktails');
+    try {
+      await updateDocument(
+        Object.fromEntries(list),
+        'cocktails',
+        'customCocktails'
+      );
+      handleSuccess('Se ha actualizado correctamente');
+    } catch (error) {
+      handleError(error);
+    }
   }
 };
 
 export const listenCustomCocktails = async (setCocktails: () => void) => {
-  return await listenDocument('cocktails', 'customCocktails', async () => {
-    setCocktails();
-  });
+  try {
+    return await listenDocument('cocktails', 'customCocktails', async () => {
+      setCocktails();
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };

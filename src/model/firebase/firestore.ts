@@ -78,7 +78,11 @@ export const listenDocument = async (
   document: string,
   callback: () => Promise<void>
 ) => {
-  return onSnapshot(doc(db, collection, document), () => {
-    if (callback) callback();
-  });
+  try {
+    return onSnapshot(doc(db, collection, document), () => {
+      if (callback) callback();
+    });
+  } catch (error) {
+    throw error;
+  }
 };
