@@ -1,21 +1,19 @@
 import { useEffect, useState } from 'react';
-import { deleteCustomCocktail } from '../../../../../../controller/handlers/dashboard/customCocktails';
+import {
+  deleteCustomCocktail,
+  getCustomCocktails,
+} from '../../../../../../controller/handlers/dashboard/customCocktails';
 import { Cocktail } from '../../../../../../controller/slices/cocktails';
 import { capitalize } from '../../../../../../model/utils/formatString';
 
-interface IDeleteCocktailProps {
-  customCocktails: {};
-}
-
-const DeleteCocktail: React.FunctionComponent<IDeleteCocktailProps> = ({
-  customCocktails,
-}) => {
+const DeleteCocktail: React.FunctionComponent = ({}) => {
   const [list, setList] = useState<[string, any][]>([]);
   const [cocktail, setCocktail] = useState('');
 
   useEffect(() => {
-    if (typeof customCocktails === 'object')
-      setList(Object.entries(customCocktails));
+    getCustomCocktails().then((res) => {
+      if (res) setList(Object.entries(res));
+    });
   }, []);
 
   useEffect(() => {

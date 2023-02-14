@@ -5,7 +5,7 @@ import { getIngredients } from '../../../../../../controller/handlers/dashboard/
 import { Cocktail } from '../../../../../../controller/slices/cocktails';
 import { CREATE_COCKTAIL_VALIDATION } from '../../../../../../model/utils/formValidations';
 import TextField from '../../../../Common/Form/TextField';
-import SelectIngredient from './SelectIngredient';
+import SelectIngredient from '../common/SelectIngredient';
 
 const INITIAL_VALUES: Cocktail = {
   name: '',

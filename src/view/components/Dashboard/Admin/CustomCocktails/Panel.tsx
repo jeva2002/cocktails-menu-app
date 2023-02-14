@@ -1,26 +1,19 @@
 import { Unsubscribe } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import {
-  getCustomCocktails,
-  listenCustomCocktails,
-} from '../../../../../controller/handlers/dashboard/customCocktails';
+import { listenCustomCocktails } from '../../../../../controller/handlers/dashboard/customCocktails';
 import { getCocktailsAPI } from '../../../../../controller/slices/cocktails';
 import CreateCocktail from './create/CreateCocktail';
 import DeleteCocktail from './delete/DeleteCocktail';
 import './Panel.scss';
+import UpdateCocktail from './update/UpdateCocktail';
 
 const Panel: React.FunctionComponent = () => {
   const [form, setForm] = useState('');
-  const [customCocktails, setCustomCocktails] = useState({});
 
   const dispatch = useDispatch<any>();
 
   useEffect(() => {
-    getCustomCocktails().then((res) => {
-      if (res) setCustomCocktails(res);
-    });
-
     let unsub: Unsubscribe | undefined;
 
     listenCustomCocktails(() => {
@@ -45,9 +38,9 @@ const Panel: React.FunctionComponent = () => {
       {form === '' ? (
         <CreateCocktail />
       ) : form === 'update' ? (
-        <></>
+        <UpdateCocktail />
       ) : (
-        <DeleteCocktail customCocktails={customCocktails} />
+        <DeleteCocktail />
       )}
     </main>
   );

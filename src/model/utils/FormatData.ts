@@ -92,3 +92,34 @@ export const formatCocktails = async (
   }
   return cocktails;
 };
+
+export const formatCustomCocktails = (
+  values: Cocktail,
+  currentCocktail: [string, any] | undefined
+) => {
+  if (currentCocktail) {
+    let flag = false;
+    const updatedValues: Cocktail = currentCocktail[1];
+    if (values.img !== '') {
+      updatedValues.img = values.img;
+      flag = true;
+    }
+    if (values.name !== '') {
+      updatedValues.name = values.name;
+      flag = true;
+    }
+    if (values.price !== 0) {
+      updatedValues.price = values.price;
+      flag = true;
+    }
+    if (values.ingredients !== undefined) {
+      if (values.ingredients.length > 0) {
+        updatedValues.ingredients = values.ingredients;
+        flag = true;
+      }
+    }
+    if (flag) {
+      return updatedValues;
+    }
+  }
+};

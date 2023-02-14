@@ -4,6 +4,7 @@ import {
   listenDocument,
   updateDocument,
 } from '../../../model/firebase/firestore';
+import { formatCustomCocktails } from '../../../model/utils/formatData';
 import { camelCase } from '../../../model/utils/formatString';
 import { Cocktail } from '../../slices/cocktails';
 
@@ -31,10 +32,21 @@ export const createCustomCocktail = async (data: Cocktail) => {
 
 export const deleteCustomCocktail = async (data: {}) => {
   try {
-    console.log(data)
     await createDocument(data, 'cocktails', 'customCocktails');
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const updateCustomCocktail = async (
+  values: Cocktail,
+  currentCocktail: [string, any] | undefined,
+  list: [string, any][]
+) => {
+  const formatData = formatCustomCocktails(values, currentCocktail);
+  if (formatData && currentCocktail) {
+    list[Number(currentCocktail[0])][1] = formatData;
+    await updateDocument(Object.fromEntries(list), 'cocktails', 'customCocktails');
   }
 };
 
