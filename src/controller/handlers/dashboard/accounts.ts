@@ -57,11 +57,13 @@ export const handlePay = async (
   total: number
 ) => {
   try {
-    await modifyIngredientsInventory(ingredients, '-');
-    const account = await dailyAccount();
-    account[table] = account[table] + total;
-    const updatedInventory = await updateDocument(account, 'accounts', today);
-    return updatedInventory;
+    if (ingredients.length) {
+      await modifyIngredientsInventory(ingredients, '-');
+      const account = await dailyAccount();
+      account[table] = account[table] + total;
+      const updatedInventory = await updateDocument(account, 'accounts', today);
+      return updatedInventory;
+    }
   } catch (error) {
     handleError(error);
   }

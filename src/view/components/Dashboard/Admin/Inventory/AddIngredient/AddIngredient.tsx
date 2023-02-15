@@ -49,7 +49,7 @@ const AddIngredient: React.FunctionComponent = (props) => {
             );
             if (currentIngredient === undefined) {
               setIngredients([...ingredients, [values.name, values.amount]]);
-              modifyIngredientsInventory([[values]], 'new');
+              modifyIngredientsInventory([values], 'new');
             }
           }}
         >

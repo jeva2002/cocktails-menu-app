@@ -1,6 +1,6 @@
-export const capitalize = (text: string) => {
-  const firstLetter = text[0].toUpperCase();
-  const rest = text.slice(1).toLowerCase();
+export const capitalize = (word: string) => {
+  const firstLetter = word[0].toUpperCase();
+  const rest = word.slice(1).toLowerCase();
   return firstLetter + rest;
 };
 
@@ -34,27 +34,24 @@ export const revertCamelCase = (phrase: string) => {
   return finalPhrase;
 };
 
-export const formatPrice = (number: number | undefined) => {
-  if (number) {
-    const numberList = number.toString().split('').reverse();
-    let finalNumber = '';
-    const triad: string[] = [];
-    let counter = 0;
-    numberList.forEach((num) => {
-      if (counter === 0) triad.push(num);
-      if (counter === 1 || counter === 2)
-        triad[triad.length - 1] = num + triad[triad.length - 1];
-      if (counter === 3) {
-        triad.push(num);
-        counter = 0;
-      }
-      counter++;
-    });
-    triad.reverse().forEach((num, index) => {
-      if (index === 0) finalNumber = num;
-      else finalNumber += '.' + num;
-    });
-    return finalNumber;
-  }
-  return '0';
+export const formatPrice = (number: number) => {
+  const numberList = number.toString().split('').reverse();
+  let finalNumber = '';
+  const triad: string[] = [];
+  let counter = 0;
+  numberList.forEach((num) => {
+    if (counter === 0) triad.push(num);
+    if (counter === 1 || counter === 2)
+      triad[triad.length - 1] = num + triad[triad.length - 1];
+    if (counter === 3) {
+      triad.push(num);
+      counter = 0;
+    }
+    counter++;
+  });
+  triad.reverse().forEach((num, index) => {
+    if (index === 0) finalNumber = num;
+    else finalNumber += '.' + num;
+  });
+  return finalNumber;
 };

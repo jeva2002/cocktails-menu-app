@@ -50,7 +50,7 @@ const Bill: React.FunctionComponent = () => {
       </ul>
       <div className='total'>
         <h3>Total:</h3>
-        <h3>${' ' + formatPrice(total)}</h3>
+        <h3>${' ' + formatPrice(total ?? 0)}</h3>
       </div>
       <div className='d-flex gap-3'>
         <button
@@ -62,15 +62,18 @@ const Bill: React.FunctionComponent = () => {
         <button
           className='btn'
           onClick={async () => {
-            navigate('/dashboard/');
-            await handlePay(
-              Tables[tableId ? parseInt(tableId) - 1 : 0],
-              cocktailsList?.map((item) => {
-                return item?.ingredients;
-              }) ?? [],
-              total ?? 0
-            );
-            dispatch(removeOrder(parseInt(tableId ?? '0')));
+            if (cocktailsList) {
+              const ingredients = cocktailsList.map(
+                (item) => item?.ingredients
+              );
+              await handlePay(
+                Tables[tableId ? parseInt(tableId) - 1 : 0],
+                ingredients,
+                total ?? 0
+              );
+              navigate('/dashboard/');
+              dispatch(removeOrder(parseInt(tableId ?? '0')));
+            }
           }}
         >
           Pagar

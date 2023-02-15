@@ -1,7 +1,6 @@
 import { DocumentData } from 'firebase/firestore';
 import { Account, Tables } from '../../controller/handlers/dashboard/accounts';
 import { Cocktail } from '../../controller/slices/cocktails';
-import store from '../store/store';
 import { camelCase, revertCamelCase } from './formatString';
 
 export const formatIngredientsList = (
@@ -25,30 +24,31 @@ export const formatIngredientsList = (
     });
 };
 
-export const formatInventory = (ingredients: DocumentData) => {
-  const cocktails: any = store.getState().cocktails.map((e: any) => {
-    return { [e.name]: [...e.ingredients] };
-  });
+export const formatCocktailsInventory = (ingredients: any, cocktails: {}[]) => {
   let inventory = {};
-  cocktails.map((e: any) => {
-    const ingredientsPerCocktail = Object.values(e).flatMap((num) => num);
-    const avalaibleCocktails = ingredientsPerCocktail.map((ingredient: any) => {
-      return Math.floor(
-        ingredients[camelCase(ingredient.name)] / ingredient.amount
+  if (typeof ingredients === 'object' || cocktails.length === 0) {
+    cocktails.map((e: {}) => {
+      const ingredientsPerCocktail = Object.values(e).flatMap((num) => num);
+      const avalaibleCocktails = ingredientsPerCocktail.map(
+        (ingredient: any) => {
+          return Math.floor(
+            ingredients[camelCase(ingredient.name)] / ingredient.amount
+          );
+        }
       );
+      const cocktailName = Object.keys(e)[0];
+      return (inventory = {
+        ...inventory,
+        [cocktailName]: Math.min(...avalaibleCocktails),
+      });
     });
-    const cocktailName = Object.keys(e)[0];
-    return (inventory = {
-      ...inventory,
-      [cocktailName]: Math.min(...avalaibleCocktails),
-    });
-  });
+  }
   return inventory;
 };
 
 export const formatOrder = (order: { table: number; order: {} }) => {
   const orderArray: any = Object.entries(order.order)
-    .filter((e) => e[1] !== undefined)
+    .filter((e) => Boolean(e[1]))
     .map((e) => [e[0], typeof e[1] === 'number' ? e[1] : 0]);
   return {
     table: order.table,
@@ -59,7 +59,7 @@ export const formatOrder = (order: { table: number; order: {} }) => {
 export const formatCocktails = async (
   cocktails: Cocktail[],
   ingredientsAndPrice: any,
-  customCocktails: DocumentData | undefined
+  customCocktails: {} | undefined
 ) => {
   cocktails.forEach((cocktail) => {
     const correspondent: Cocktail = ingredientsAndPrice.find(

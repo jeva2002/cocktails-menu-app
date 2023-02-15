@@ -4,10 +4,11 @@ import {
   listenDocument,
   updateDocument,
 } from '../../../model/firebase/firestore';
+import store from '../../../model/store/store';
 import { today } from '../../../model/utils/dates';
 import {
   formatIngredientsList,
-  formatInventory,
+  formatCocktailsInventory,
 } from '../../../model/utils/formatData';
 import { camelCase } from '../../../model/utils/formatString';
 import { IngredientValues } from '../../../view/components/Dashboard/Admin/Inventory/AddIngredient/AddIngredient';
@@ -23,7 +24,10 @@ const updateDailyInventory = async () => {
   try {
     const ingredients = await getIngredients();
     if (ingredients) {
-      const inventory: any = formatInventory(ingredients);
+      const cocktails: {}[] = store.getState().cocktails.map((e: any) => {
+        return { [e.name]: [...e.ingredients] };
+      });
+      const inventory: any = formatCocktailsInventory(ingredients, cocktails);
       if (inventory.GG) {
         await createDocument(inventory, 'inventory', today);
       }
@@ -38,20 +42,23 @@ const selectOperationToModifyIngredientInventory = (
   operation: '+' | '-' | 'new',
   inventory: any
 ) => {
-  return operation === 'new'
-    ? (inventory = {
-        ...inventory,
-        [`${ingredient[0]}`]: Number(ingredient[1]),
-      })
-    : (inventory = {
-        ...inventory,
-        [`${
-          operation === '+' ? ingredient[0] : camelCase(`${ingredient[0]}`)
-        }`]:
-          operation === '+'
-            ? inventory[`${ingredient[0]}`] + Number(ingredient[1])
-            : inventory[camelCase(`${ingredient[0]}`)] - Number(ingredient[1]),
-      });
+  const afterOperation =
+    operation === 'new'
+      ? (inventory = {
+          ...inventory,
+          [`${ingredient[0]}`]: Number(ingredient[1]),
+        })
+      : (inventory = {
+          ...inventory,
+          [`${
+            operation === '+' ? ingredient[0] : camelCase(`${ingredient[0]}`)
+          }`]:
+            operation === '+'
+              ? inventory[`${ingredient[0]}`] + Number(ingredient[1])
+              : inventory[camelCase(`${ingredient[0]}`)] -
+                Number(ingredient[1]),
+        });
+  return afterOperation;
 };
 
 export const modifyIngredientsInventory = async (

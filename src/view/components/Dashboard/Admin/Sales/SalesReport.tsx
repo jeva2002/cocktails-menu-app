@@ -25,13 +25,13 @@ const SalesReport: React.FunctionComponent = () => {
       </div>
       {sales && (
         <ul className='w-100 pe-4 sales-list'>
-          {formatSales(sales)?.map((sale) => (
+          {formatSales(sales ?? 0)?.map((sale) => (
             <li
               className='d-flex justify-content-between h4 py-1 px-sm-5 px-2 d-flex align-items-center'
               key={sale?.table}
             >
               <span>Mesa {sale?.table}</span>
-              <span>${' ' + formatPrice(sale?.total)}</span>
+              <span>${' ' + formatPrice(sale?.total ?? 0)}</span>
             </li>
           ))}
         </ul>
@@ -45,7 +45,7 @@ const SalesReport: React.FunctionComponent = () => {
               ?.map((sale) => sale?.total)
               ?.reduce(
                 (accumulator, currentValue) => accumulator + currentValue
-              )
+              ) ?? 0
           ) ?? 0}
         </span>
       </div>

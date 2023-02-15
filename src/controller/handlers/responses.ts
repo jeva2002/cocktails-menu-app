@@ -30,7 +30,7 @@ export const handleSuccess = (title?: string, message?: string): void => {
 };
 
 export const handleConfirm = (
-  callback: () => any,
+  confirmEvent: () => any,
   title?: string,
   message?: string
 ) => {
@@ -42,7 +42,7 @@ export const handleConfirm = (
   }).then(async (result) => {
     if (result.isConfirmed) {
       try {
-        await callback();
+        await confirmEvent();
         handleSuccess(title ?? 'La operación ha sido exitosa', message ?? '');
       } catch (error) {
         throw error;
