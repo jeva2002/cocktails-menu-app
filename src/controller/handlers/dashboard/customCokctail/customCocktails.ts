@@ -4,7 +4,7 @@ import {
   listenDocument,
   updateDocument,
 } from '../../../../model/firebase/firestore';
-import { formatCustomCocktails } from '../../../../model/utils/formatData';
+import { formatToModifyCustomCocktails } from '../../../../model/utils/formatData';
 import { camelCase } from '../../../../model/utils/formatString';
 import { Cocktail } from '../../../slices/cocktails';
 import { handleConfirm, handleError, handleSuccess } from '../../responses';
@@ -55,19 +55,23 @@ export const updateCustomCocktail = async (
   currentCocktail: [string, any] | undefined,
   list: [string, any][]
 ) => {
-  const formatData = formatCustomCocktails(values, currentCocktail);
-  if (formatData && currentCocktail) {
-    list[Number(currentCocktail[0])][1] = formatData;
-    try {
-      await updateDocument(
-        Object.fromEntries(list),
-        'cocktails',
-        'customCocktails'
-      );
-      handleSuccess('Se ha actualizado correctamente');
-    } catch (error) {
-      handleError(error);
+  try {
+    const formatData = formatToModifyCustomCocktails(values, currentCocktail);
+    if (formatData && currentCocktail) {
+      const objectInList = list.find((e) => e === currentCocktail);
+      if (objectInList) {
+        list[list.indexOf(objectInList)][1] = formatData;
+
+        await updateDocument(
+          Object.fromEntries(list),
+          'cocktails',
+          'customCocktails'
+        );
+        handleSuccess('Se ha actualizado correctamente');
+      }
     }
+  } catch (error) {
+    handleError(error);
   }
 };
 

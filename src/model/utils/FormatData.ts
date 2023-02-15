@@ -56,52 +56,81 @@ export const formatOrder = (order: { table: number; order: {} }) => {
   };
 };
 
-export const formatCocktails = async (
+export const getIngredientsAndPricePerCocktail = (
   cocktails: Cocktail[],
-  ingredientsAndPrice: any,
-  customCocktails: {} | undefined
+  ingredientsAndPrice: {
+    id: string;
+    price: number;
+    ingredients: { name: string; amount: number }[] | [];
+  }[]
 ) => {
   cocktails.forEach((cocktail) => {
-    const correspondent: Cocktail = ingredientsAndPrice.find(
-      (e: { id: string; price: number; ingredients: [] }) =>
-        e.id === cocktail.id
+    const correspondent = ingredientsAndPrice.find(
+      (e: {
+        id: string;
+        price: number;
+        ingredients: { amount: number; name: string }[];
+      }) => e.id === cocktail.id
     );
-    cocktail.price = correspondent.price;
-    cocktail.ingredients = correspondent.ingredients;
+    if (correspondent) {
+      cocktail.price = correspondent.price;
+      cocktail.ingredients = correspondent.ingredients;
+    }
   });
-  if (customCocktails) {
-    const formatedCustomCocktails: Cocktail[] = Object.values(customCocktails);
-    formatedCustomCocktails.forEach((cocktail) =>
-      cocktails.push({
-        ...cocktail,
-        ingredients: cocktail.ingredients.map((ingredient) => {
-          return {
-            name: revertCamelCase(ingredient.name),
-            amount: ingredient.amount,
-          };
-        }),
-      })
-    );
-  }
   return cocktails;
 };
 
 export const formatCustomCocktails = (
+  cocktails: Cocktail[],
+  customCocktails: {}
+) => {
+  const formatedCustomCocktails: Cocktail[] = Object.values(customCocktails);
+  formatedCustomCocktails.forEach((cocktail) =>
+    cocktails.push({
+      ...cocktail,
+      ingredients: cocktail.ingredients.map((ingredient) => {
+        return {
+          name: revertCamelCase(ingredient.name),
+          amount: ingredient.amount,
+        };
+      }),
+    })
+  );
+  return cocktails;
+};
+
+export const formatCocktailsContext = async (
+  cocktails: Cocktail[],
+  ingredientsAndPrice: {
+    id: string;
+    price: number;
+    ingredients: { name: string; amount: number }[] | [];
+  }[],
+  customCocktails: {} | undefined
+) => {
+  cocktails = getIngredientsAndPricePerCocktail(cocktails, ingredientsAndPrice);
+  if (customCocktails) {
+    cocktails = formatCustomCocktails(cocktails, customCocktails);
+  }
+  return cocktails;
+};
+
+export const formatToModifyCustomCocktails = (
   values: Cocktail,
-  currentCocktail: [string, any] | undefined
+  currentCocktail: [string, Cocktail] | undefined
 ) => {
   if (currentCocktail) {
     let flag = false;
     const updatedValues: Cocktail = currentCocktail[1];
-    if (values.img !== '') {
+    if (values.img !== '' && values.img !== currentCocktail[1].img) {
       updatedValues.img = values.img;
       flag = true;
     }
-    if (values.name !== '') {
+    if (values.name !== '' && values.name !== currentCocktail[1].name) {
       updatedValues.name = values.name;
       flag = true;
     }
-    if (values.price !== 0) {
+    if (values.price !== 0 && values.price !== currentCocktail[1].price) {
       updatedValues.price = values.price;
       flag = true;
     }

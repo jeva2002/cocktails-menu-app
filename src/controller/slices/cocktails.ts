@@ -4,7 +4,7 @@ import {
   cocktailsCollection,
   getAllDocuments,
 } from '../../model/firebase/firestore';
-import { formatCocktails } from '../../model/utils/formatData';
+import { formatCocktailsContext } from '../../model/utils/formatData';
 import { getCustomCocktails } from '../handlers/dashboard/customCokctail/customCocktails';
 
 export interface Cocktail {
@@ -37,7 +37,7 @@ const getCocktailsAPI = createAsyncThunk(
     if (Array.isArray(ingredientsAndPrice) && Array.isArray(cocktails)) {
       const customCocktails = await getCustomCocktails();
       cocktails =
-        (await formatCocktails(
+        (await formatCocktailsContext(
           cocktails,
           ingredientsAndPrice,
           customCocktails
