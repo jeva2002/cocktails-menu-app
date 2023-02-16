@@ -99,7 +99,7 @@ export const formatCustomCocktails = (
   return cocktails;
 };
 
-export const formatCocktailsContext = async (
+export const formatCocktailsContext = (
   cocktails: Cocktail[],
   ingredientsAndPrice: {
     id: string;

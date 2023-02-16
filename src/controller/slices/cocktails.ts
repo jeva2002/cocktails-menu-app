@@ -23,8 +23,8 @@ const initialState: Cocktail[] = [];
 const getCocktailsAPI = createAsyncThunk(
   'cocktails/getCocktailsAPI',
   async () => {
-    const response = await getData();
-    let cocktails: Cocktail[] = response?.drinks.map((e: any) => {
+    const responseAPI = await getData();
+    let cocktails: Cocktail[] = responseAPI?.drinks.map((e: any) => {
       return {
         id: e['idDrink'],
         name: e['strDrink'],
@@ -37,11 +37,11 @@ const getCocktailsAPI = createAsyncThunk(
     if (Array.isArray(ingredientsAndPrice) && Array.isArray(cocktails)) {
       const customCocktails = await getCustomCocktails();
       cocktails =
-        (await formatCocktailsContext(
+        formatCocktailsContext(
           cocktails,
           ingredientsAndPrice,
           customCocktails
-        )) ?? [];
+        ) ?? [];
     }
     return cocktails;
   }

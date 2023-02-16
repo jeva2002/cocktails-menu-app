@@ -25,7 +25,9 @@ describe('Format cocktails inventory', () => {
       },
     ];
 
-    expect(formatCocktailsInventory(ingredients, cocktails)).toEqual({
+    const result = formatCocktailsInventory(ingredients, cocktails);
+
+    expect(result).toEqual({
       michelada: 1,
       limonada: 2,
     });
@@ -54,7 +56,10 @@ test('Receive an object with an order property that contains an object with usel
       cafe: undefined,
     },
   };
-  expect(formatOrder(order)).toStrictEqual({
+
+  const result = formatOrder(order);
+
+  expect(result).toStrictEqual({
     table: 1,
     order: [['limonada', 1]],
   });
@@ -91,9 +96,12 @@ describe('Format cocktails context', () => {
   };
 
   test('Receive a cocktail without ingredients and price and return the completed cocktail', () => {
-    expect(
-      getIngredientsAndPricePerCocktail(cocktails, ingredientsAndPrice)
-    ).toEqual([
+    const result = getIngredientsAndPricePerCocktail(
+      cocktails,
+      ingredientsAndPrice
+    );
+
+    expect(result).toEqual([
       {
         id: '100',
         img: 'frutiño',
@@ -105,7 +113,9 @@ describe('Format cocktails context', () => {
   });
 
   test('Receive a custom cocktail and return it in the cocktails list', () => {
-    expect(formatCustomCocktails([], customCocktails)).toEqual([
+    const result = formatCustomCocktails([], customCocktails);
+
+    expect(result).toEqual([
       {
         img: 'juguito',
         ingredients: [{ name: 'Mango', amount: 2 }],
@@ -117,12 +127,15 @@ describe('Format cocktails context', () => {
 });
 
 describe('Format to modify custom cocktail', () => {
-  const cocktail: Cocktail = {
-    img: 'juguito',
-    ingredients: [{ name: 'mango', amount: 2 }],
-    name: 'juguito',
-    price: 500,
-  };
+  const cocktail: [string, Cocktail] = [
+    '1',
+    {
+      img: 'juguito',
+      ingredients: [{ name: 'mango', amount: 2 }],
+      name: 'juguito',
+      price: 500,
+    },
+  ];
 
   const emptyValues: Cocktail = {
     img: '',
@@ -132,35 +145,35 @@ describe('Format to modify custom cocktail', () => {
   };
 
   test('get any modification and return the modified object', () => {
-    expect(
-      formatToModifyCustomCocktails({ ...emptyValues, img: 'No hay imagen' }, [
-        '1',
-        cocktail,
-      ])
-    ).toEqual({ ...cocktail, img: 'No hay imagen' });
-    expect(
-      formatToModifyCustomCocktails({ ...emptyValues, name: 'Bebida' }, [
-        '1',
-        cocktail,
-      ])
-    ).toEqual({ ...cocktail, name: 'Bebida' });
-    expect(
-      formatToModifyCustomCocktails({ ...emptyValues, price: 1000 }, [
-        '1',
-        cocktail,
-      ])
-    ).toEqual({ ...cocktail, price: 1000 });
-    expect(
-      formatToModifyCustomCocktails(
-        { ...emptyValues, ingredients: [{ amount: 1, name: 'salt' }] },
-        ['1', cocktail]
-      )
-    ).toEqual({ ...cocktail, ingredients: [{ amount: 1, name: 'salt' }] });
+    const modifyImage = formatToModifyCustomCocktails(
+      { ...emptyValues, img: 'No hay imagen' },
+      cocktail
+    );
+    const modifyName = formatToModifyCustomCocktails(
+      { ...emptyValues, name: 'Bebida' },
+      cocktail
+    );
+    const modifyPrice = formatToModifyCustomCocktails(
+      { ...emptyValues, price: 1000 },
+      cocktail
+    );
+    const modifyIngredients = formatToModifyCustomCocktails(
+      { ...emptyValues, ingredients: [{ amount: 1, name: 'salt' }] },
+      cocktail
+    );
+
+    expect(modifyImage).toEqual({ ...cocktail[1], img: 'No hay imagen' });
+    expect(modifyName).toEqual({ ...cocktail[1], name: 'Bebida' });
+    expect(modifyPrice).toEqual({ ...cocktail[1], price: 1000 });
+    expect(modifyIngredients).toEqual({
+      ...cocktail[1],
+      ingredients: [{ amount: 1, name: 'salt' }],
+    });
   });
 
   test('Receive an cocktail without changes and throw an error', () => {
     expect(() =>
-      formatToModifyCustomCocktails(emptyValues, ['1', cocktail])
+      formatToModifyCustomCocktails(emptyValues, cocktail)
     ).toThrow();
   });
 });

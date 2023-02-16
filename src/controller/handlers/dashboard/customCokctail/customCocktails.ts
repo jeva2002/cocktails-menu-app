@@ -61,7 +61,6 @@ export const updateCustomCocktail = async (
       const objectInList = list.find((e) => e === currentCocktail);
       if (objectInList) {
         list[list.indexOf(objectInList)][1] = formatData;
-
         await updateDocument(
           Object.fromEntries(list),
           'cocktails',

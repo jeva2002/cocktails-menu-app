@@ -11,6 +11,11 @@ import {
   formatCocktailsInventory,
 } from '../../../model/utils/formatData';
 import { camelCase } from '../../../model/utils/formatString';
+import {
+  addToIngredientsInventory,
+  newIngredient,
+  subtractToIngredientsInventory,
+} from '../../../model/utils/inventory';
 import { IngredientValues } from '../../../view/components/Dashboard/Admin/Inventory/AddIngredient/AddIngredient';
 import { handleError, handleSuccess } from '../responses';
 
@@ -37,27 +42,17 @@ const updateDailyInventory = async () => {
   }
 };
 
-const selectOperationToModifyIngredientInventory = (
+export const operationToModifyIngredientInventory = (
   ingredient: (string | number)[],
   operation: '+' | '-' | 'new',
   inventory: any
 ) => {
   const afterOperation =
     operation === 'new'
-      ? (inventory = {
-          ...inventory,
-          [`${ingredient[0]}`]: Number(ingredient[1]),
-        })
-      : (inventory = {
-          ...inventory,
-          [`${
-            operation === '+' ? ingredient[0] : camelCase(`${ingredient[0]}`)
-          }`]:
-            operation === '+'
-              ? inventory[`${ingredient[0]}`] + Number(ingredient[1])
-              : inventory[camelCase(`${ingredient[0]}`)] -
-                Number(ingredient[1]),
-        });
+      ? newIngredient(ingredient, inventory)
+      : operation === '+'
+      ? addToIngredientsInventory(ingredient, inventory)
+      : subtractToIngredientsInventory(ingredient, inventory);
   return afterOperation;
 };
 
@@ -70,7 +65,7 @@ export const modifyIngredientsInventory = async (
   try {
     ingredientsList.forEach((ingredient) => {
       if (ingredient) {
-        inventory = selectOperationToModifyIngredientInventory(
+        inventory = operationToModifyIngredientInventory(
           ingredient,
           operation,
           inventory

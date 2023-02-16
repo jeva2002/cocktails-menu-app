@@ -2,7 +2,7 @@ import { Account } from '../controller/handlers/dashboard/accounts';
 import { formatSales } from '../model/utils/formatData';
 
 test('Get daily account and return an array of objects with the number of the table and the total sales for that table', () => {
-  const sales: Account = {
+  const salesMock: Account = {
     secondTable: 325,
     fourthTable: 725,
     thirdTable: 525,
@@ -11,7 +11,9 @@ test('Get daily account and return an array of objects with the number of the ta
     firstTable: 125,
   };
 
-  expect(formatSales(sales)).toEqual([
+  const result = formatSales(salesMock);
+
+  expect(result).toEqual([
     { table: 1, total: 125 },
     { table: 2, total: 325 },
     { table: 3, total: 525 },

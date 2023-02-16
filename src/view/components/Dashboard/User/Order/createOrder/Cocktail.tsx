@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Cocktail } from '../../../../../../controller/slices/cocktails';
+import { formatPrice } from '../../../../../../model/utils/formatString';
 
 interface Props {
   cocktail: Cocktail;
@@ -24,7 +25,8 @@ const Cocktail: React.FunctionComponent<Props> = ({
       id={shortage ? 'pending' : ''}
     >
       <img src={cocktail.img} alt={cocktail.name} />
-      <h3 className='h5 pt-2'>{cocktail.name}</h3>
+      <h3 className='h5 pt-2 '>{cocktail.name}</h3>
+      <h6>$ {' ' + formatPrice(cocktail.price)}</h6>
       <div className='pb-2 d-flex align-items-center justify-content-evenly w-100'>
         <button
           className='cocktail-btn rounded-circle'
