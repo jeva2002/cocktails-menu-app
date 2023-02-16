@@ -158,5 +158,9 @@ describe('Format to modify custom cocktail', () => {
     ).toEqual({ ...cocktail, ingredients: [{ amount: 1, name: 'salt' }] });
   });
 
-  //TODO test error
+  test('Receive an cocktail without changes and throw an error', () => {
+    expect(() =>
+      formatToModifyCustomCocktails(emptyValues, ['1', cocktail])
+    ).toThrow();
+  });
 });
