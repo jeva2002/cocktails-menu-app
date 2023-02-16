@@ -85,6 +85,12 @@
   }
 }
 
+.not-found {
+  background-image: url('./assets/bg/front.png');
+  background-repeat: repeat-x;
+  background-size: auto;
+}
+
 @media (max-width: 972px) {
   #root {
     height: max-content;

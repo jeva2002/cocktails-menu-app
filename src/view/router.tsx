@@ -19,6 +19,7 @@ import {
   AccountsList,
 } from './components/Dashboard/User';
 import Error from './pages/Error';
+import NotFound from './pages/NotFound';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -36,67 +37,9 @@ const router = createBrowserRouter(
         <Route path='add-ingredient' element={<AddIngredient />} />
         <Route path='custom-cocktails' element={<Panel />} />
       </Route>
+      <Route path='*' element={<NotFound />} />
     </Route>
   )
 );
 
 export default router;
-
-// [
-//   {
-//     element: <App />,
-//     errorElement: <Error />,
-//     children: [
-//       {
-//         path: '/',
-//         element: <Login />,
-//       },
-//       {
-//         path: '/register',
-//         element: <Register />,
-//       },
-//       {
-//         path: '/dashboard',
-//         element: <Dashboard />,
-//         children: [
-//           {
-//             path: '/dashboard/',
-//             element: <Services />,
-//           },
-//           {
-//             path: '/dashboard/status',
-//             element: <Orders />,
-//           },
-//           {
-//             path: '/dashboard/status/:tableId',
-//             element: <EditOrder />,
-//           },
-//           {
-//             path: '/dashboard/account/',
-//             element: <AccountsList />,
-//           },
-//           {
-//             path: '/dashboard/account/:tableId',
-//             element: <Bill />,
-//           },
-//           {
-//             path: '/dashboard/sales',
-//             element: <SalesReport />,
-//           },
-//           {
-//             path: '/dashboard/inventory',
-//             element: <InventoryReport />,
-//           },
-//           {
-//             path: '/dashboard/add-ingredient',
-//             element: <AddIngredient />,
-//           },
-//           {
-//             path: '/dashboard/custom-cocktails',
-//             element: <Panel />,
-//           },
-//         ],
-//       },
-//     ],
-//   },
-// ]
