@@ -26,7 +26,7 @@ const CreateCocktail: React.FunctionComponent = () => {
 
   return (
     <>
-      <h2 className='mb-4 pb-1'>Nueva Bebida</h2>
+      <h2 className='mb-4 pb-1 text-center'>Nueva Bebida</h2>
       <Formik
         initialValues={INITIAL_VALUES}
         validationSchema={CREATE_COCKTAIL_VALIDATION}

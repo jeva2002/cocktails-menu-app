@@ -34,9 +34,8 @@ const InventoryReport: React.FunctionComponent = (props) => {
   };
 
   return (
-    <main className='inventory px-sm-5 px-1 py-2'>
+    <main className='inventory px-sm-5 px-1 py-3'>
       <div className='text-center'>
-        <h1>Inventario</h1>
         <h2 className='h5'>{today}</h2>
       </div>
       <menu className='options d-flex justify-content-evenly'>

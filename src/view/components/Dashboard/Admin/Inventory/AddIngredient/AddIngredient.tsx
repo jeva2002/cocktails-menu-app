@@ -31,7 +31,6 @@ const AddIngredient: React.FunctionComponent = (props) => {
 
   return (
     <main className='d-flex flex-column px-0 py-3 w-100 h-75 h-sm-100 justify-content-center align-items-center gap-5'>
-      <h1>Agregar Ingrediente</h1>
       <div className='d-flex gap-2 flex-md-row flex-column'>
         <Formik
           initialValues={INITIAL_VALUES}
@@ -49,7 +48,7 @@ const AddIngredient: React.FunctionComponent = (props) => {
             );
             if (currentIngredient === undefined) {
               setIngredients([...ingredients, [values.name, values.amount]]);
-              modifyIngredientsInventory([values], 'new');
+              modifyIngredientsInventory([[values]], 'new');
             }
           }}
         >

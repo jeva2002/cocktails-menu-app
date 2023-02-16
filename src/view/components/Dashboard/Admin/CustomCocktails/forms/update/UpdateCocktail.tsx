@@ -46,13 +46,15 @@ const UpdateCocktail: React.FunctionComponent = () => {
 
   return (
     <>
-      <div className='d-flex w-50 align-items-center flex-md-row flex-column mb-md-4 mb-5 justify-content-between mb-3'>
-        <b className='h4'>Bebida:</b>
-        <SelectCocktail
-          cocktail={cocktail}
-          setCocktail={setCocktail}
-          list={list}
-        />
+      <div className='w-md-50 w-100 mb-md-4 mb-5 mb-3'>
+        <div className='d-flex align-items-center justify-md-content-center justify-content-evenly flex-md-row flex-column'>
+          <b className='h4'>Bebida:</b>
+          <SelectCocktail
+            cocktail={cocktail}
+            setCocktail={setCocktail}
+            list={list}
+          />
+        </div>
       </div>
       <Formik
         initialValues={INITIAL_VALUES}

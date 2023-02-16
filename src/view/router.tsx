@@ -14,10 +14,12 @@ import {
   Bill,
   AccountsList,
 } from './components/Dashboard/User';
+import Error from './pages/Error';
 
 const router = createBrowserRouter([
   {
     element: <App />,
+    errorElement: <Error />,
     children: [
       {
         path: '/',

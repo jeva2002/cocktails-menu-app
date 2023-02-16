@@ -2,7 +2,7 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUser } from '../../controller/slices/user';
 import Nav from '../components/Dashboard/Nav/Nav';
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 import { getCocktailsAPI } from '../../controller/slices/cocktails';
 import { createDailyAccount } from '../../controller/handlers/dashboard/accounts';
 import { listenInventory } from '../../controller/handlers/dashboard/inventory';
@@ -28,7 +28,9 @@ const Dashboard: React.FunctionComponent = () => {
   return (
     <div className='main-container dashboard'>
       <Nav />
-      <Outlet />
+      <Suspense fallback={<h1>Holi</h1>}>
+        <Outlet />
+      </Suspense>
     </div>
   );
 };
