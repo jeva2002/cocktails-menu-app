@@ -6,7 +6,8 @@ export const addToIngredientsInventory = (
 ) =>
   (inventory = {
     ...inventory,
-    [ingredient[0]]: inventory[`${ingredient[0]}`] + Number(ingredient[1]),
+    [ingredient[0]]:
+      inventory[`${ingredient[0]}`] + parseInt(`${ingredient[1]}`),
   });
 
 export const subtractToIngredientsInventory = (
@@ -16,7 +17,7 @@ export const subtractToIngredientsInventory = (
   (inventory = {
     ...inventory,
     [camelCase(`${ingredient[0]}`)]:
-      inventory[`${ingredient[0]}`] - Number(ingredient[1]),
+      inventory[camelCase(`${ingredient[0]}`)] - parseInt(`${ingredient[1]}`),
   });
 
 export const newIngredient = (
@@ -25,5 +26,5 @@ export const newIngredient = (
 ) =>
   (inventory = {
     ...inventory,
-    [`${ingredient[0]}`]: Number(ingredient[1]),
+    [`${ingredient[0]}`]: parseInt(`${ingredient[1]}`),
   });
