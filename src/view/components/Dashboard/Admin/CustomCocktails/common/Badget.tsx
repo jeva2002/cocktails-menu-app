@@ -24,7 +24,7 @@ const Badget: React.FunctionComponent<Props> = ({
           <span
             className='h5 click text-warning'
             onClick={() => {
-              if (amount > 0)
+              if (amount > 1)
                 modifyBadget('reduce', setIngredients, id, amount);
             }}
           >

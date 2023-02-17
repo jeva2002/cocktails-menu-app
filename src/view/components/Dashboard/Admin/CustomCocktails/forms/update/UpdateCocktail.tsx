@@ -46,6 +46,7 @@ const UpdateCocktail: React.FunctionComponent = () => {
 
   return (
     <>
+      <h2 className='my-5 pb-1 text-center'>Actualizar Bebida</h2>
       <div className='w-md-50 w-100 mb-md-4 mb-5 mb-3'>
         <div className='d-flex align-items-center justify-md-content-center justify-content-evenly flex-md-row flex-column'>
           <b className='h4'>Bebida:</b>

@@ -32,7 +32,7 @@ const Panel: React.FunctionComponent = () => {
         <li onClick={() => setForm('update')}>Actualizar</li>
         <li onClick={() => setForm('delete')}>Eliminar</li>
       </menu>
-      <div className='scroll-view'>
+      <div className='scroll-view h-75 d-flex flex-column justify-content-center '>
         {form === '' ? (
           <CreateCocktail />
         ) : form === 'update' ? (

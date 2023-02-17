@@ -23,7 +23,7 @@ const DeleteCocktail: React.FunctionComponent = ({}) => {
 
   return (
     <form
-      className='pt-5 select h-50 d-flex flex-column align-items-center justify-content-baseline gap-4'
+      className='select h-100 w-100 d-flex flex-column align-items-center justify-content-center gap-4'
       onSubmit={async (e) => {
         e.preventDefault();
         if (cocktail !== '') {
@@ -34,17 +34,22 @@ const DeleteCocktail: React.FunctionComponent = ({}) => {
         }
       }}
     >
+      <h2 className='mb-4 pb-1 text-center'>Eliminar bebida</h2>
       <select value={cocktail} onChange={(e) => setCocktail(e.target.value)}>
-        {list.map((item: [string, Cocktail]) => (
-          <option key={item[1].name} value={item[1].name}>
-            {capitalize(item[1].name)}
-          </option>
-        ))}
+        {list.length ? (
+          list.map((item: [string, Cocktail]) => (
+            <option key={item[1].name} value={item[1].name}>
+              {capitalize(item[1].name)}
+            </option>
+          ))
+        ) : (
+          <option value=''>Sin bebidas personalizadas</option>
+        )}
       </select>
       <button className='btn btn-danger' type='submit'>
         Eliminar
       </button>
-      <p className='w-75'>
+      <p className='w-50'>
         Recuerda que al eliminar un producto este no se podrá recuperar
       </p>
     </form>

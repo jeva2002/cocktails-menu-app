@@ -12,14 +12,19 @@ const SelectCocktail: React.FunctionComponent<ISelectCocktailProps> = ({
   setCocktail,
   list,
 }) => {
+  console.log(list);
   return (
     <div className='select'>
       <select value={cocktail} onChange={(e) => setCocktail(e.target.value)}>
-        {list.map((item: [string, Cocktail]) => (
-          <option key={item[1].name} value={item[1].name}>
-            {capitalize(item[1].name)}
-          </option>
-        ))}
+        {list.length ? (
+          list.map((item: [string, Cocktail]) => (
+            <option key={item[1].name} value={item[1].name}>
+              {capitalize(item[1].name)}
+            </option>
+          ))
+        ) : (
+          <option value=''>Sin bebidas personalizadas</option>
+        )}
       </select>
     </div>
   );

@@ -26,5 +26,5 @@ export const newIngredient = (
 ) =>
   (inventory = {
     ...inventory,
-    [`${ingredient[0]}`]: parseInt(`${ingredient[1]}`),
+    [camelCase(`${ingredient[0]}`)]: parseInt(`${ingredient[1]}`),
   });
