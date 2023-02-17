@@ -26,6 +26,7 @@ export const getIngredients: any = async () =>
   await getDocument('inventory/ingredients');
 
 const updateDailyInventory = async () => {
+  console.log("holi")
   try {
     const ingredients = await getIngredients();
     if (ingredients) {
