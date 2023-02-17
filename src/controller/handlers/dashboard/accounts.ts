@@ -1,5 +1,7 @@
 import {
+  accountsCollection,
   createDocument,
+  getAllDocuments,
   getDocument,
   updateDocument,
 } from '../../../model/firebase/firestore';
@@ -8,6 +10,7 @@ import { handleError, handleSuccess } from '../responses';
 import { modifyIngredientsInventory } from './inventory';
 
 export interface Account {
+  id?: string;
   firstTable?: number;
   secondTable?: number;
   thirdTable?: number;
@@ -38,6 +41,9 @@ const newAccount: Account = {
 
 export const dailyAccount: any = async () =>
   await getDocument('accounts/' + today);
+
+export const getHistoryAccounts: any = async () =>
+  await getAllDocuments(accountsCollection);
 
 export const createDailyAccount = async () => {
   try {

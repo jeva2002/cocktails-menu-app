@@ -16,6 +16,7 @@ import { app } from './config';
 const db = getFirestore(app);
 
 export const cocktailsCollection = collection(db, 'cocktails');
+export const accountsCollection = collection(db, 'accounts');
 
 export const createDocument = async (
   data: any,

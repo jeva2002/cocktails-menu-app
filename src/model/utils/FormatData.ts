@@ -149,6 +149,7 @@ export const formatToModifyCustomCocktails = (
 export const formatSales = (sales: Account | undefined) => {
   if (sales) {
     return Object.entries(sales)
+      .filter((sale) => sale[0] !== 'id')
       .map((sale) => {
         for (let table in Tables) {
           if (sale[0] === table)
