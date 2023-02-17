@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { trash } from '../../../../../../assets/icons';
-import { handleSuccess } from '../../../../../../controller/handlers/responses';
 import {
   getOneOrder,
   Order,
@@ -12,6 +11,7 @@ import EditInput from './EditInput';
 import './EditOrder.scss';
 
 const EditOrder: React.FunctionComponent = () => {
+  const navigate = useNavigate();
   const { tableId } = useParams();
   const order = useSelector((state: { orders: Order[] }) =>
     getOneOrder(state, parseInt(tableId ?? ''))
@@ -42,7 +42,7 @@ const EditOrder: React.FunctionComponent = () => {
           : [],
       })
     );
-    handleSuccess();
+    navigate('/dashboard/status');
   };
 
   return (
