@@ -7,15 +7,12 @@ import { getCocktailsAPI } from '../../controller/slices/cocktails';
 import { createDailyAccount } from '../../controller/handlers/dashboard/accounts';
 import { listenInventory } from '../../controller/handlers/dashboard/inventory';
 import { Unsubscribe } from 'firebase/firestore';
-import { getIngredientsFromInventory } from '../../controller/slices/inventory';
-
 const Dashboard: React.FunctionComponent = () => {
   const user = useSelector(selectUser);
   const dispatch = useDispatch<any>();
 
   useEffect(() => {
     dispatch(getCocktailsAPI());
-    dispatch(getIngredientsFromInventory());
     createDailyAccount();
 
     let unsub: Unsubscribe | undefined;
