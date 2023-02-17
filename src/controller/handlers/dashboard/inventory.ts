@@ -53,7 +53,9 @@ export const operationToModifyIngredientInventory = (
       : operation === '+'
       ? addToIngredientsInventory(ingredient, inventory)
       : subtractToIngredientsInventory(ingredient, inventory);
-  return afterOperation;
+
+  console.log(afterOperation);
+  return inventory;
 };
 
 export const modifyIngredientsInventory = async (

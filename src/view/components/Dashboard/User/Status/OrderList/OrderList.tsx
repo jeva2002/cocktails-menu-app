@@ -14,7 +14,7 @@ const OrderList: React.FunctionComponent<Props> = ({ order, deleteOrder }) => {
   const [showDetail, setShowDetail] = useState(false);
 
   return (
-    <article>
+    <article className='w-100'>
       <div className='p-3 bg-dark d-flex justify-content-between align-items-center'>
         <h3 className='h5 text-light'>Mesa {order.table}</h3>
         <div className='d-flex gap-4'>
@@ -33,7 +33,7 @@ const OrderList: React.FunctionComponent<Props> = ({ order, deleteOrder }) => {
         </div>
       </div>
       {showDetail ? (
-        <ul className='border-start border-end pt-4 pb-2'>
+        <ul className='border-start border-end border-bottom p-4 m-0'>
           {Array.isArray(order.order)
             ? order.order.map((item, index) => (
                 <li
