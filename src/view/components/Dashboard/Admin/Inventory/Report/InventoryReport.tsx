@@ -10,7 +10,7 @@ import InventoryList from './InventoryList';
 
 const InventoryReport: React.FunctionComponent = (props) => {
   const [list, setList] = useState<[string, unknown][]>([]);
-
+  
   useEffect(() => {
     dailyInventory().then((res: {}) => {
       setList(Object.entries(res));

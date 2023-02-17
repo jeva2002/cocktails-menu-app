@@ -7,6 +7,7 @@ import { getCocktailsAPI } from '../../controller/slices/cocktails';
 import { createDailyAccount } from '../../controller/handlers/dashboard/accounts';
 import { listenInventory } from '../../controller/handlers/dashboard/inventory';
 import { Unsubscribe } from 'firebase/firestore';
+import { getIngredientsFromInventory } from '../../controller/slices/inventory';
 
 const Dashboard: React.FunctionComponent = () => {
   const user = useSelector(selectUser);
@@ -14,6 +15,7 @@ const Dashboard: React.FunctionComponent = () => {
 
   useEffect(() => {
     dispatch(getCocktailsAPI());
+    dispatch(getIngredientsFromInventory());
     createDailyAccount();
 
     let unsub: Unsubscribe | undefined;
@@ -28,7 +30,7 @@ const Dashboard: React.FunctionComponent = () => {
   return (
     <div className='main-container dashboard'>
       <Nav />
-      <Suspense fallback={<h1>Holi</h1>}>
+      <Suspense fallback={<h1>Cargando...</h1>}>
         <Outlet />
       </Suspense>
     </div>
